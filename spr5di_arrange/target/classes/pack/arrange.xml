@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- 생성자 주입 -->
+	<bean id="mImpl" class="pack.MessageImpl" scope="singleton">
+		<!-- 
+		<bean id="mImpl" class="pack.MessageImpl" scope="prototype">
+		싱글톤이 아닌 객체를 매번 생성 
+		-->
+		<constructor-arg>
+			<value>손오공</value>
+		</constructor-arg>
+		<constructor-arg>
+			<value>사오정</value>
+		</constructor-arg>
+	</bean>
+</beans>
