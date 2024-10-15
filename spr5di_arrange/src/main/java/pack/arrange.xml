@@ -3,17 +3,41 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-	<!-- 생성자 주입 -->
+	<!-- 생성자 주입-->
 	<bean id="mImpl" class="pack.MessageImpl" scope="singleton">
 		<!-- 
 		<bean id="mImpl" class="pack.MessageImpl" scope="prototype">
 		싱글톤이 아닌 객체를 매번 생성 
 		-->
-		<constructor-arg>
+		<!-- 방법 1 - 이 방법이 조금더 느슨한 구조를 띄고 있다.
+		<constructor-arg index="1">
 			<value>손오공</value>
 		</constructor-arg>
-		<constructor-arg>
+		<constructor-arg index="0">
 			<value>사오정</value>
 		</constructor-arg>
+		 -->
+		 <!-- 방법 2 - 해당 방법은 비교적 타이트한 구조를 띄고 있다. -->
+		 <!-- argument의 attribute안에는 index를 통해서 실행 순서를 조절 할 수 있고, type을 통해서 입력한 값이 어떤 타입인지 설정할 수 있다. type은 생략되어있다. -->
+		<constructor-arg index="0" value="손오공" type="java.lang.String"/> 
+		<constructor-arg index="1" value="사오정" type="String"/>
+		<constructor-arg index="2" value="2000" type="int"/> <!-- type의 기본값은 String이다. -->
+		<constructor-arg index="3" ref="ourInfo" type="pack.OurInfo"/> <!-- 참고형의 type도 지정 가능하다 -->
+		
+		<!-- Setter 주입 -->
+		<property name="spec">
+			<value>자바 중급</value>
+		</property>
+		
+		<property name="outFileInter">
+			<ref bean="outFileInterImpl"/>
+		</property>
+		
 	</bean>
+	
+	<bean id="outFileInterImpl" class="other.OutFileInterImpl">
+		<property name="filePath" value="c:/work/ditest.txt"/>
+	</bean>
+
+	<bean id="ourInfo" class="pack.OurInfo"/>
 </beans>

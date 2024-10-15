@@ -16,6 +16,9 @@ public class Main {
 		messageInter2.sayHi();
 		System.out.println(messageInter+" "+messageInter2);
 		System.out.println(messageInter==messageInter2); //두개의 객체의 주소가 같다 즉 싱글톤이다.
+		
+		MessageInter inter = context.getBean("mImpl", MessageInter.class);
+		inter.sayHi();
 	}
 
 }
