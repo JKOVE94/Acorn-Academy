@@ -17,8 +17,7 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
 	<bean id="loggingAdvice" class="advice.LoggingAdvice" />
 
 	<!-- Proxy를 통한 간접 접근 -->
-	<bean id="proxy"
-		class="org.springframework.aop.framework.ProxyFactoryBean">
+	<bean id="proxy" class="org.springframework.aop.framework.ProxyFactoryBean">
 		<property name="target">
 			<ref bean="targetClass" />
 		</property>
