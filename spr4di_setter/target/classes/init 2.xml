@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<!-- Setter Injection 방법 1 : 일반적인 Setter -->
+	<bean id="myProcess" class="pack.MyProcess">
+		<property name="name" value="신선한"/>
+		<property name="nai" value="23"/>
+		<property name="showData" ref="sData"/>
+	</bean>
+	
+	<bean id="sData" class="pack.ShowData"/>
+	
+
+</beans>
