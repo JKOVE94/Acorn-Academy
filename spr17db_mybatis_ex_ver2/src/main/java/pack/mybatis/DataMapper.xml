@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="dev">
+<sql id="innerjoin" >FROM jikwon AS j INNER JOIN buser AS b ON j.busernum = b.buserno</sql>
+
+<select id="selectBuser" resultType="bdto">
+SELECT buserno, busername FROM buser
+</select>
+
+<select id="selectBuserInwon" resultType="idto" >  <!-- 반환타입은 기본으로 list collection -->
+  SELECT b.busername, COUNT(j.busernum) AS inwon <include refid="innerjoin"/> GROUP BY b.busername
+ </select>
+
+ <select id="selectAllJikwon" resultType="jdto">  <!-- 반환타입은 기본으로 list collection -->
+  SELECT jikwonno, jikwonname, busernum, jikwonjik, jikwonpay, jikwonibsail FROM jikwon
+ </select>
+   
+</mapper>
