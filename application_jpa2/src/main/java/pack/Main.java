@@ -2,6 +2,7 @@ package pack;
 
 import java.util.List;
 
+import domain.SangpumTable;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
