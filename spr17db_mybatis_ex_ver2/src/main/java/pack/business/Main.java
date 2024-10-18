@@ -16,7 +16,7 @@ public class Main {
 		System.out.println();
 		inter.printBuserInwon();
 		System.out.println();
-//		inter.printBuserTopSal();
+		inter.printBuserTopsal();
 	}
 	
 

@@ -36,13 +36,14 @@ public class JikwonImpl implements JikwonInter {
 	}
 	
 	@Override
-	public List<InwonDto> FindInwon() {
+	public List<BuserDto> SelectBuser() {
 		SqlSession sqlSession = factory.openSession();
-		List<InwonDto> list =null;
+		List<BuserDto> list =null;
+		
 		try {
-			list = sqlSession.selectList("selectBuserInwon");
+			list = sqlSession.selectList("selectBuser");
 		} catch (Exception e) {
-			System.out.println("SelectAll err :"+e);
+			System.out.println("SelectBuser err :"+e);
 		}
 		finally {
 			if(sqlSession != null) sqlSession.close();

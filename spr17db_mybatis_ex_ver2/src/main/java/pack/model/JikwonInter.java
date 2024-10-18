@@ -6,5 +6,5 @@ import java.util.Map;
 public interface JikwonInter {
 	Map<Integer,String> getBuserInfo();
 	List<JikwonDto> SelectJikwon();
-	List<InwonDto> FindInwon();
+	List<BuserDto> SelectBuser();
 }
