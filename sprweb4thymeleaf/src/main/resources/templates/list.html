@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html  xmlns:th="https://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	타임리프 결과 출력
+	<br />
+	<!--텍스트 노드를 비워두게 된다면 Thymeleaf를 알지 못하는 브라우저에서는 공백으로 표시하게 된다. -->
+	<!-- 그렇기때문에 태그 내에 텍스트 노드를 채워두는것이 좋다. (시인성적인 면에도 좋다.)-->
+	메세지 :
+	<span th:text="${msg}">메세지 출력 장소</span>
+	<br />
+	<!--  위의 내용은 <%=request.getAttribute("msg")%> 와 같다. -->
+
+	<!-- 브라우저가 Thymeleaf Template Engine을 읽을 수 있다는 확신이 있다면 아래와 같이 작성할 수 있다. -->
+	메세지 :
+	<span>[[${msg}]]</span>
+	<br />
+
+	<span th:text="'메세지 : ' + ${msg} + '입니다 (값 결합 + 사용)'"></span>
+	<br />
+	<span th:text="|메세지 :  ${msg} 입니다 (값 결합 리터럴 치환 사용)|"> "| 문자열 |"
+	</span>
+	<br />
+	<!-- 리터럴 치환은 JavaScript의 ``(백틱) 과 유사하다.  -->
+	<!-- 사람들은 리터럴 치환을 더욱 선호한다. -->
+	<hr />
+
+	지역 변수 처리 :
+	<span th:with="kor=90, eng=80"> <!-- th:with="변수명=값,..." --> <span
+		th:text="|${kor} + ${eng} = ${kor+eng}|">변수는 span tag 내에서만 유효하다
+			(지역변수)</span><br /> <span th:unles="|{${kor} > ${eng}|"> <span
+			th:text="'지역변수 내에서 해당 값이 참이면 수행합니다.'"></span><br /> <span>[['지역변수
+				내에서 해당 값이 참이면 수행합니다.']]</span><br />
+	</span>
+	</span>
+
+	<br /> 관계 연산 :
+	<span th:text="3 >= 4"></span>
+	<span th:text="3 < 4"></span>
+	<span th:text="3 == 4"></span>
+	<span th:text="3 != 4"></span>
+	<br /> 조건 연산(if, unless) :
+	<span th:text="5>4 ? '크구나' : '작네'">삼항 연산자</span>
+	<br /> 조건연산 (true):
+	<span th:if="5 >4"> <!-- true를 입력 할 수 있음 --> 조건이 참일 때 수행
+	</span> 조건연산 (false):
+	<span th:unless="5 == 3"> <!-- false를 입력 할 수 있음 --> 조건이 거짓일 때 수행
+	</span>
+	<br /> switch 조건문 :
+	<div th:switch="${msg2}">
+		<b th:case="james" th:text="|${msg2}님|"></b> <i th:case="tom"
+			th:text="|${msg2}씨|"></i> <strong th:case="*" th:text="'모르는 이름이에요'">Otherwise
+			- 위의 조건 외의 모든 상황</strong>
+	</div>
+	<br /> DTO 자료 출력 : getter method 사용
+	<br />
+	<span th:text="'상품 코드 : ' + ${sangpum.code}">getCode 호출</span>
+	<br />
+	<span th:text="'상품 명 : ' + ${sangpum['sang']}">getSang 호출</span>
+	<br />
+	<span>[['상품 가격 :' + ${sangpum.price}]]</span>
+	<br />
+	<br />
+
+	<div th:object="${sangpum}">
+		<!-- 참조 기법으로 th:object 사용-->
+		상품 코드 : <span th:text="*{code}"></span><br />
+		<!-- *을 붙이면 부모태그에서 선언한 object의 멤버를 호출 할 수 있다. -->
+		상품 명 : <span th:text="*{sang}"></span><br /> 상품 가격 : <span
+			th:text="*{['price']}"></span><br /> 상품 가격 : <span>[[*{['price']}]]</span><br />
+	</div>
+
+	List Collection 자료 출력 : getter method 사용
+	<br />
+	<p th:text="${list[0]}"></p>
+	<p th:text="${list[1]}"></p>
+	<br /> 반복처리 :
+	<br />
+	<table border="1">
+		<tr>
+			<th>코드</th>
+			<th>품명</th>
+			<th>가격</th>
+		</tr>
+		<tr th:each="s:${list}">
+			<td th:text="${s.code}"></td>
+			<td>[[${s.sang}]]</td>
+			<td>[[${s.price}]]</td>
+		</tr>
+	</table>
+
+</body>
+</html>

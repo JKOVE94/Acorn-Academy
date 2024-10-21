@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" layout:decorate="~{layouts/mylayout}">
+<head>
+<meta charset="UTF-8">
+<title>레이아웃 파일임을 선언함</title>
+
+</head>
+<body>
+<h2 th:text="'레이아웃 연습'"></h2>
+<!-- 실제 적용내용은 layout:fragment="content"부터 아래까지 이기 때문에 위의 코드는 적용되지 않는다. -->
+<div layout:fragment="content">
+<h1>본문</h1></br>
+<img alt="Dog Image" th:src="@{/images/Funny_Dog_H.png}" title="Dog Image" style="width:200px"/>
+sdffsd
+</div>
+</body>
+</html>
