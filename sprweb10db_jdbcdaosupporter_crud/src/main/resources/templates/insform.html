@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+** 자료 추가 **
+	<form th:action="@{/insert}" method="post">
+	id : <input type="text" name="id"><br/>
+	pw : <input type="text" name="passwd"><br/>
+	이름 : <input type="text" name="name">	<br/>
+	<button>등 록</button>
+	</form>
+
+</body>
+</html>
