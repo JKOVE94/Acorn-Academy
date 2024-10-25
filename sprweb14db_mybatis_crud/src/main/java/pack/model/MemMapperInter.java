@@ -19,7 +19,7 @@ public interface MemMapperInter {
 	@Select("SELECT num, name, addr FROM mem WHERE num=#{num}")
 	MemDto getPart(String num);
 	
-	@Insert("INSERT INTO mem(num, name, addr) VALUE(#{num}, #{name}, #{addr})")
+	@Insert("INSERT INTO mem(num, name, addr) VALUES(#{num}, #{name}, #{addr})")
 	int insertData(MemBean bean);
 	
 	@Update("UPDATE mem SET name=#{name}, addr=#{addr} WHERE num=#{num}")

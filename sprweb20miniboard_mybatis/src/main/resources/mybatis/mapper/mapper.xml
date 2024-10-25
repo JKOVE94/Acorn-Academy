@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="pack.model.DataMapperInter">
+<sql id="basic">SELECT num, author, title, content, bwrite, readcnt FROM springboard</sql>
+
+ <select id="selectList" resultType="pack.model.Board">  <!-- 반환타입은 기본으로 list collection -->
+ <include refid="basic"></include>
+ </select>
+ 
+ <select id="selectSearch" parameterType="pack.controller.BoardBean" resultType="pack.model.Board">
+ <include refid="basic"></include> WHERE ${searchName} LIKE CONCAT('%',#{searchValue}, '%')
+ </select>
+ 
+ <select id="selectOne" parameterType="String" resultType="pack.model.Board">
+ <include refid="basic"></include> WHERE num=#{num}
+ </select>
+ 
+ <insert id="insert" parameterType="pack.controller.BoardBean">
+ INSERT INTO springboard(num,author,title,content,bwrite,readcnt) 
+ VALUES((SELECT MAX(ali.num)+1 FROM springboard AS ali),#{author},#{title},#{content},now(),0)
+ </insert>
+
+ <update id="updateReadcnt" parameterType="String">
+ UPDATE springboard SET readcnt=readcnt+1
+ WHERE num=#{num}
+ </update>
+ 
+ <update id="update" parameterType="pack.controller.BoardBean">
+ UPDATE springboard SET author=#{author}, title=#{title}, content=#{content}
+ WHERE num=#{num}
+ </update>
+ 
+ <delete id="delete" parameterType="String" >
+ DELETE FROM springboard WHERE num=#{num}
+ </delete>
+ 
+</mapper>

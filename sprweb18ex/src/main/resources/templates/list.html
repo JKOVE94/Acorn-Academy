@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+	<script>
+	document.addEventListener("DOMContentLoaded", () => {
+        let button = document.getElementById("button");
+        let reset = document.getElementById("reset");
+        //let jik = document.getElementById("jik"); input
+        let jik = document.getElementById("jiksel"); //select
+        let form = document.getElementById("form");
+        
+        button.addEventListener("click", event => {
+        	event.preventDefault();
+            if (jik.value === "") {
+                alert("직급 정보를 입력하세요");
+                jik.focus();
+                return;
+            }
+            form.submit();
+        })
+        reset.addEventListener("click", event => {
+            event.preventDefault();
+            location.href = "/";
+        })
+		
+	})
+</script>
+</head>
+<body>
+<h2>직급과 성별로 직원 찾기!</h2>
+	<form method="get" th:action="@{search}" id="form" th:object="${bean}">
+		<label for="jiksel">직급 :&nbsp; </label> 
+		 <select id="jiksel" name="jikwonjik">
+            <option value="" th:selected="*{jikwonjik == null}" hidden>직급을 선택해주세요</option>
+            <option value="전체" th:selected="*{jikwonjik =='전체'}">전체</option>
+            <option value="사원" th:selected="*{jikwonjik =='사원'}">사원</option>
+            <option value="대리" th:selected="*{jikwonjik =='대리'}">대리</option>
+            <option value="부장" th:selected="*{jikwonjik =='부장'}">부장</option>
+            <option value="과장" th:selected="*{jikwonjik =='과장'}">과장</option>
+            <option value="이사" th:selected="*{jikwonjik =='이사'}">이사</option>
+        </select><br/>
+		<!-- <input type="text" name="jikwonjik" id="jik" th:value="*{jikwonjik}"> input방식  -->
+		성별 :&nbsp; <label for="남">남</label> 
+		<input type="radio" name="jikwongen" value="남" id="남" th:checked="*{jikwongen =='남' || jikwongen==null}"> 
+		<label for="여">여</label>  
+		<input type="radio" name="jikwongen" value="여" id="여" th:checked="*{jikwongen =='여'}"> 
+		<br/>
+		<button type="button" id="button">확인</button>
+		<button type="button" id="reset">검색결과 초기화</button>
+	</form>
+	
+	<br/><hr/>
+	<th:block th:if="${size>0}">
+		<table>
+			<table border="1">
+				<tr>
+					<th>사번</th>
+					<th>직원명</th>
+					<th>성별</th>
+				</tr>
+				<tr th:each="l:${list}">
+					<td>[[${l.jikwonno}]]</td>
+					<td>[[${l.jikwonname}]]</td>
+					<td>[[${l.jikwongen}]]</td>
+				</tr>
+				<tr>
+				<td colspan="3" th:text="|총 인원 : ${size}|" style="text-align:center; font-weight:bold"></td>
+				</tr>
+			</table>
+	</th:block>
+
+</body>
+
+</html>

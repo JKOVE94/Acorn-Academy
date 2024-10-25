@@ -1,6 +1,6 @@
 package pack.model;
 
-
+//Entity 순환참조
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
