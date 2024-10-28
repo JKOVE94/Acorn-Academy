@@ -36,4 +36,6 @@ public interface DataMapperInter extends JpaRepository<BoardVo, Integer>{
 	@Query("SELECT b FROM BoardVo AS b WHERE title LIKE CONCAT('%', ?1,'%')")
 	List<BoardVo> searchByTitle(String searchValue);
 	
+	//@Query("SELECT b FROM BoardVo AS b WHERE ?1 LIKE CONCAT('%', ?2,'%')")
+	//List<BoardVo> search(String searchName, String searchValue);
 }
