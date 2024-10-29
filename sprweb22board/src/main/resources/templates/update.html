@@ -23,7 +23,7 @@ window.onload = () => {
 <h3>* 수정 * </h3>
 <form method="post" th:action="@{/update}" name="frm" th:object="${data}">
 <input type="hidden" th:value="*{pass}" id="passcheck">
-<input type="hidden" th:field="${page}">
+<input type="hidden" th:value="${page}" name="page">
 <input type="hidden" th:field="*{num}">
 <input type="hidden" th:field="*{bip}">
 <input type="hidden" th:field="*{bdate}">

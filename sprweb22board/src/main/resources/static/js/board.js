@@ -13,7 +13,7 @@ function upData() {
 		frm.name.focus();
 		return;
 	}
-
+	
 	else if(confirm("정말 수정할까요?")){
 		if(passcheck.value === frm.pass.value){
 			frm.submit();

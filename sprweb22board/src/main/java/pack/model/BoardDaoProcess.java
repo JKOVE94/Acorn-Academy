@@ -32,6 +32,23 @@ public class BoardDaoProcess {
 	public void updateReadcnt(int num) {
 		boardRepository.updateReadCnt(num);
 	}
+	
+	//부모글의 nested값을 return
+	public int getSuperNested(int num) {
+		int superNested = boardRepository.getNested(num);
+		return superNested;
+	}
+	
+	//부모글의 onum값을 return
+	public int getSuperGnum(int num) {
+		int superGnum = boardRepository.getGnum(num);
+		return superGnum;
+	}
+	
+	//기존 글 비밀번호 찾기 (비교용)
+	public String getPass(int num) {
+		return boardRepository.getPass(num);
+	}
 
 	// 전체자료 읽기
 	public Page<Board> listAll(int page) {
@@ -47,7 +64,7 @@ public class BoardDaoProcess {
 //		List<Board> list = boardRepository.findAll(Sort.by(Sort.Order.desc("gnum"),Sort.Order.asc("onum")));
 
 		// 이렇게도 가능하다. 입력한 순서에 따라 1차키(bdate), 2차키(gnum), 3차키(onum)로 설정되었다.
-		Sort sort = Sort.by(Sort.Order.desc("bdate"), Sort.Order.desc("gnum"), Sort.Order.asc("onum"));
+		Sort sort = Sort.by(Sort.Order.desc("gnum"), Sort.Order.asc("nested"), Sort.Order.desc("onum"));
 
 		// Page number, PageSize, 정렬기준(Sort 객체)
 		Pageable pageable = PageRequest.of(page, 10, sort);
@@ -67,7 +84,7 @@ public class BoardDaoProcess {
 
 	// 검색
 	public Page<Board> search(BoardBean bean) {
-		Sort sort = Sort.by(Sort.Order.desc("bdate"), Sort.Order.desc("gnum"), Sort.Order.asc("onum"));
+		Sort sort = Sort.by(Sort.Order.desc("gnum"), Sort.Order.asc("nested"), Sort.Order.desc("onum"));
 		Pageable pageable = PageRequest.of(0, 10, sort);
 		Page<Board> slist = null;
 		if (bean.getSearchName().equals("title")) {
@@ -93,6 +110,23 @@ public class BoardDaoProcess {
 			return "입력/수정 오류" + e.getMessage();
 		}
 	}
+	
+	@Transactional
+	public String update(BoardBean bean) {
+		try {
+			Optional <Board> b = boardRepository.findById(bean.getNum());
+			Board board = b.get();
+			board.setName(bean.getName());
+			board.setMail(bean.getMail());
+			board.setTitle(bean.getTitle());
+			board.setCont(bean.getCont());
+			//save()가 없어도 Entity의 변화가 발생했으므로 자동 수정됨.
+			return "success";
+		} catch (Exception e) {
+			return "수정 오류" + e.getMessage();
+		}
+	}
+	
 
 	// 특정 자료 읽기 : 상세보기, 수정, 삭제용
 	public Board detail(int num) {
@@ -113,6 +147,23 @@ public class BoardDaoProcess {
 			return "삭제 오류" + e.getMessage();
 		}
 		
+	}
+	
+	//댓글 
+	@Transactional
+	public String reply(BoardBean bean) {
+		Board board = new Board(bean.getNum(), bean.getName(), bean.getPass(), bean.getMail(), bean.getTitle(),
+				bean.getCont(), bean.getBip(), bean.getBdate(), bean.getReadcnt(), bean.getGnum(), bean.getOnum(),
+				bean.getNested());
+		
+		boardRepository.updateOnum(bean.getGnum(), bean.getOnum()); //댓글시에 Onum 갱신 -> 기존 댓글들의 Onum은 +1씩 증가
+		
+		try {
+			boardRepository.save(board);
+			return "success";
+		} catch (Exception e) {
+			return "댓글 오류" + e.getMessage();
+		}
 	}
 	
 }

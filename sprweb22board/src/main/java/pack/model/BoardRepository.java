@@ -35,4 +35,11 @@ public interface BoardRepository extends JpaRepository<Board, Integer>{
 	@Modifying(clearAutomatically = true)
 	@Query("UPDATE Board b SET b.onum = b.onum + 1 WHERE b.gnum=?1 AND b.onum>=?2 ")
 	void updateOnum(int gnum, int onum);
+	
+	@Query("SELECT b.nested FROM Board AS b WHERE b.num = ?1")
+	int getNested(int num);
+	
+	@Query("SELECT b.gnum FROM Board AS b WHERE b.num = ?1")
+	int getGnum(int num);
+	
 }

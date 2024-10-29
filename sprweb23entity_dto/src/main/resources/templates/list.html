@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h3>부서 정보 (JPA - Entity와 DTO를 분리)</h3>
+	<a th:href="@{/insert}">부서 추가</a> (부서번호는 수정, 부서명은 삭제)
+	<table border="1" style="text-align:center">
+		<tr>
+			<th>부서 번호</th>
+			<th>부서 명</th>
+			<th>부서 위치</th>
+			<th>부서 연락처</th>
+		</tr>
+		<th:block th:if="${datas.size > 0}">
+		<tr th:each="d : ${datas}">
+			<td><a th:href="@{update(buserno=${d.buserno})}">[[${d.buserno}]]</a></td>
+			<td><a th:href="@{delete(buserno=${d.buserno})}">[[${d.busername}]]</a></td>
+			<td>[[${d.buserloc}]]</td>
+			<td>[[${d.busertel}]]</td>
+		</tr>
+		</th:block>
+	</table>
+	<br/>
+	<a th:href="@{/}">메인으로</a>
+
+</body>
+</html>

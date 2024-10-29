@@ -28,15 +28,32 @@ public class UpdateController {
 	}
 	
 	@PostMapping("update")
-	public String updateProcess(Model model, BoardBean bean) {
-		String result = daoProcess.insertAndUpdate(bean);
-		if(result.equals("success")) {
-			return "redirect:detail?num="+bean.getNum()+"&page="+bean.getPage();
+	public String updateProcess(Model model, BoardBean bean, @RequestParam("page")String page) {
+		//비밀번호 확인 후 수정
+		String pass = daoProcess.getPass(bean.getNum());
+		
+		if(bean.getPass().equals(pass)) {
+			String result = daoProcess.insertAndUpdate(bean);
+			if(result.equals("success")) {
+				//상세보기로 돌아가기
+				return "redirect:detail?num="+bean.getNum()+"&page="+page;
+				
+				//목록보기로 돌아가기
+//				return "redirect:list?page="+bean.getPage();
+			}
+			else {
+				model.addAttribute("page", page);
+				model.addAttribute("msg", result);
+				return "forward:/error";
+			}	
 		}
 		else {
-			model.addAttribute("msg", result);
-			return "forward:/error";
+			model.addAttribute("page", page);
+			model.addAttribute("msg", "비밀번호가 일치하지 않음");
+			return "forward:/update_err";
 		}
+		
+		
 	}
 
 }

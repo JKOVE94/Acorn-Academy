@@ -32,7 +32,17 @@
 		<th:block th:if="${not #strings.isEmpty(list)}">
 			<tr th:each="l: ${list.content}"> <!-- content는 생략 가능 -->
 				<td>[[${l.num}]]</td>
-				<td><a th:href="@{/detail(num=${l.num},page=${page})}">[[${l.title}]]</a></td>
+				<td>
+					<th:block th:if="${l.nested >0}" th:each="m : ${#numbers.sequence(1, l.nested)}">&nbsp;&nbsp;</th:block>
+					<!-- indentation -->
+					<th:block th:if="${l.onum >0}"><img th:src="@{/images/re.gif}"></th:block>
+					<!-- new image -->
+					<!--thymeleaf의 dates Class를 활용하면 새로운 글을 체크해 볼 수 있다. createToday() 혹은 createNow()를 활용하면 Date타입으로 반환된다. -->
+					<!--yyyy-MM-dd 타입으로 저장된 l.bdate와 비교하기 위해 #dates.format 을 통해 같은 타입으로 맞춰준다. -->
+					<th:block th:if="${#dates.format(#dates.createToday(), 'yyyy-MM-dd') == l.bdate}"><img th:src="@{/images/new.png}" width="30px"></th:block>
+					<!-- title -->
+					<a th:href="@{/detail(num=${l.num},page=${page})}">[[${l.title}]]</a>
+				</td>
 				<td>[[${l.name}]]</td>
 				<td>[[${l.bdate}]]</td>
 				<td>[[${l.readcnt}]]</td>
