@@ -27,13 +27,16 @@ public interface JikwonRepository extends JpaRepository<Jikwon, Integer>{
 	List<Jikwon> findAllWithBuserRightJoin();
 	
 	//Fetch Join : 연관된 엔티티의 쿼리를 한번에 메모리로 로딩 (Join과 유사하지만 Eager Fetch)
-	//@Query("SELECT j FROM Jikwon AS j FETCH j.buser AS b")
-	//List<Jikwon> findAllWithBuserFetch();
+	@Query("SELECT j FROM Jikwon AS j JOIN FETCH j.buser AS b")
+	List<Jikwon> findAllWithBuserFetch();
 	
 	//Native Query
 	@Query(value = "SELECT * FROM jikwon AS j JOIN buser AS b ON j.busernum = b.buserno", nativeQuery = true)
 	List<Jikwon> findAllWithBuserNative();
 	
 	//Sub Query
+	//가장 높은 급여를 받는 직원 조회
+	@Query("SELECT j FROM Jikwon AS j JOIN j.buser AS b WHERE j.jikwonpay=(SELECT MAX(j2.jikwonpay) FROM Jikwon AS j2)")
+	List<Jikwon> findTopPayWithSubQuery();
 }
 
