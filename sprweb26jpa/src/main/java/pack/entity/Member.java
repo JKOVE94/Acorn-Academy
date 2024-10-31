@@ -33,7 +33,6 @@ public class Member {
 				.addr(dto.getAddr())
 				.name(dto.getName())
 				.num(dto.getNum())
-				.build();
-		
+				.build();	
 	}
 }

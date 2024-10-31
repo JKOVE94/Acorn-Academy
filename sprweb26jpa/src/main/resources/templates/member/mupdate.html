@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h3>* 회원 수정 *</h3>
+<form method="post" th:action="@{/member/update}" th:object="${dto}">
+<input type="hidden" th:field="*{num}">
+번호 : [[*{num}]]<br/>
+이름 : <input type="text" th:field="*{name}"><br/>
+주소 : <input type="text" th:field="*{addr}"><br/>
+<button>수정</button>
+<button type="reset">입력취소</button>
+</form>
+<a th:href="@{/member/mlist}">리스트로 돌아가기</a>
+</body>
+</html>
