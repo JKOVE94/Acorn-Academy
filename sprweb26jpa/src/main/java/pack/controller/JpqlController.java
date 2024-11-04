@@ -36,7 +36,7 @@ public class JpqlController {
 		return "jpql";
 	}
 	
-	//ResponseBody를 사용하면 객체형식이면 Key Value 형식의 JSON으로 반환된다. (jackson 라이브러리 지원)
+	//ResponseBody를 사용하면 Class로 담긴 데이터가 Key Value 형식의 JSON으로 반환된다. (jackson 라이브러리 지원)
 	@ResponseBody
 	@PostMapping("/jpql/test") //ajax 요청
 	public List<EmpDto> testSql(@RequestParam("query")String query) {

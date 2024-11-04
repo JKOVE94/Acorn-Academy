@@ -38,14 +38,13 @@ document.querySelector("#btnEx").addEventListener("click", () => {
     fetch("[[@{/}]]jpql/test", {
         method: "POST",
         headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
+            "Content-Type" : "application/x-www-form-urlencoded",
             charset: "UTF-8"
         },
         body: queryString
     })
     .then(res => res.json())
     .then(list => {
-        console.log(list);
         const result = JSON.stringify(list, null, 3);
         document.querySelector("#showData").innerText = result;
     });

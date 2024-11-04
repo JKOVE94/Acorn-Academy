@@ -16,7 +16,7 @@
 	<h2>고객 담당 직원 정보</h2>
 	<a href="javascript:history.back()">이전</a>
 	<div th:each="d : ${dlist}" class="info">
-	[[${d.gogekname}]]님의 담당 사원은 [[${d.jikwon.jikwonname}]] [[${d.jikwon.jikwonjik}]] 입니다. 전화는 [[${d.jikwon.buser.busertel}]] 입니다.
+	고객 [[${d.gogekname}]]님의 담당 사원은 [[${d.jikwon.jikwonname}]] [[${d.jikwon.jikwonjik}]] 입니다. 전화는 [[${d.jikwon.buser.busertel}]] 입니다.
 	</div>
 
 </body>

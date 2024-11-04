@@ -8,4 +8,5 @@ public interface DataProcess {
 	List<JikwonDto> jikwonGogekList();
 	List<GogekDto> GogekDamdangList();
 	List<String> GogekDamdangListStr();
+	List<String> GogekDamdangListStr2();
 }

@@ -18,12 +18,12 @@ public class BuserDto {
 	private String busertel;
 	private List<Jikwon> jikwonList;	
 	
-	public static BuserDto fromEntity(Buser dept) {
+	public static BuserDto fromEntity(Buser buser) {
 		return BuserDto.builder()
-				.buserno(dept.getBuserno())
-				.busername(dept.getBusername())
-				.busertel(dept.getBusertel())
-				.jikwonList(dept.getJikwonList())
+				.buserno(buser.getBuserno())
+				.busername(buser.getBusername())
+				.busertel(buser.getBusertel())
+				.jikwonList(buser.getJikwonList())
 				.build();
 	}
 }

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body th:object="${list}">
+	<h2>[[|*{jikwonname} *{jikwonjik}의 관리고객|]]</h2>
+	<a href="javascript:history.back()">이전</a>
+	<table border="1">
+		<tr>		
+			<th>고객번호</th>
+			<th>고객명</th>
+			<th>성별</th>
+			<th>나이</th>
+			<th>전화</th>
+		</tr>
+			<tr th:each="l : *{gogekDtoList}">
+				<td>[[${l.gogekno}]]</td>
+				<td>[[${l.gogekname}]]</td>
+				<td>[[${l.gogekgen}]]</td>
+				<td>[[${l.gogekage}]]</td>
+				<td>[[${l.gogektel}]]</td>				
+			</tr>
+			<tr>
+			<td colspan="5"><strong>인원수 : [[${list.gogekDtoList.size()}]]</strong></td>
+			</tr>
+	</table>
+
+</body>
+</html>
