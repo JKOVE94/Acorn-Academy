@@ -1,8 +1,10 @@
-package pack.model;
+package pack.entity;
+
+import java.util.List;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -13,12 +15,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Getter
 @Entity
-@Table(name="sangdata")
-public class Sangdata {
+public class Buser {
 
 	@Id
-	private int code;
-	private String sang;
-	private int su;
-	private long dan;
+	private int buserno;
+	private String busername, buserloc, busertel;
+	
+	@OneToMany(mappedBy = "buser")
+	private List<Jikwon> jikwonlist;
 }

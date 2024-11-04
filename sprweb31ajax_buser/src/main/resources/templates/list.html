@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+<script>
+const func = buserno =>{
+	//alert(buserno);
+	$('#showData').empty();
+	$.ajax({
+		type:'get',
+		url:'jikwonlist',
+		dataType: "json",
+		data : {buserno : buserno},
+		success: (jikwondatas)=>{
+			//alert(jikwondatas.datas);
+		},
+		error:()=>{
+			$('#showData').text('에러');
+		}
+	})
+	.then(response => {
+			let count = 0;
+		const datas = response.datas;
+		let str = "<br/>* 근무 직원 * <br/>";
+		str+="<table border='1'><tr><th>사번</th><th>이름</th><th>직급</th></tr>";
+		$(datas).each((index,arr) => {
+			str+="<tr>"
+			str+= "<td>"+arr['no'] + "</td>";
+			str+= "<td>"+arr['name'] + "</td>";
+			str+= "<td>"+arr.jik + '</td>';
+			str+="</tr>"
+			count++;
+		})
+		str+= "<tr><td colspan='3'>인원수 : "+count+"</td></tr></table>"
+		$('#showData').append(str);
+	})
+}
+</script>
+</head>
+<body>
+<a href="logout">로그 아웃</a><br/>
+* 부서 정보 * <br/>
+<table border="1">
+<thead>
+<tr>
+<th>부서번호</th><th>부서명</th><th>부서위치</th><th>부서전화</th>
+</tr>
+</thead>
+<th:block th:if="${blist.size>0}">
+<tr th:each="l : ${blist}">
+<td>[[${l.buserno}]]</td><td><a th:href="|javascript:func(${l.buserno})|">[[${l.busername}]]</a></td><td>[[${l.buserloc}]]</td><td>[[${l.busertel}]]</td>
+</tr>
+</th:block>
+</table>
+<hr/>
+<div id="showData"></div>
+</body>
+</html>

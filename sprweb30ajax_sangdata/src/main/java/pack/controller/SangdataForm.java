@@ -5,7 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import pack.model.Sangdata;
+import pack.entity.Sangdata;
 
 @Builder
 @AllArgsConstructor
@@ -21,6 +21,7 @@ public class SangdataForm {
 	
 	public static Sangdata toEntity(SangdataForm form) {
 		return Sangdata.builder()
+				.code(form.getCode())
 				.dan(form.getDan())
 				.sang(form.getSang())
 				.su(form.getSu())
