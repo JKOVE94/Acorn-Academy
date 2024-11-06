@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script>
+const insertMem = () =>{
+	const form = document.querySelector('form');
+	const MemBean = new FormData(form);
+	
+	fetch('/api/members',
+		{method:'POST',
+		body:MemBean
+		})
+	
+		.then(res => {
+			if(!res.ok){
+				throw new Error('회원 추가 실패');
+			}
+			else{
+				location.href='/members/list';
+			}
+		})
+		.catch(err=>{
+			console.log("오류 :", err);
+		})
+}
+</script>
+</head>
+<body>
+** 자료 추가 **
+<form onsubmit="event.preventDefault(); insertMem()">
+	번호 : <input type="text" name="num"><br/>
+	이름 : <input type="text" name="name"><br/>
+	주소 : <input type="text" name="addr"><br/>
+<button>수정</button>
+</form>
+</body>
+</html>
