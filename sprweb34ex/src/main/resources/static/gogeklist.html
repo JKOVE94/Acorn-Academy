@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script>
+document.addEventListener('DOMContentLoaded',()=>{
+	document.getElementById('btx').addEventListener('click',()=>{
+		const no = document.getElementById('gogekno').value;
+		const name = document.getElementById('gogekname').value;
+		const print = document.getElementById('print');
+		let str = "";
+		fetch('searchg?gogekno='+no+'&gogekname='+name)
+		.then(res => {
+			return res.json();
+		})
+		.then(response => {
+			const dto = response.datas;
+			if(dto === null){
+			print.innerHTML= "<h3>잘못된 고객정보입니다. 다시 입력해주세요</h3>";
+			}
+			else{
+			str+="<strong>직원명 : </strong>"+dto.jikwonname+"&nbsp;&nbsp;&nbsp;";
+			str+="<strong>직급 : </strong>"+dto.jikwonjik+"&nbsp;&nbsp;&nbsp;";
+			str+="<strong>부서명 : </strong>"+dto.busername+"&nbsp;&nbsp;&nbsp;";
+			str+="<strong>부서전화 : </strong>"+dto.busertel+"&nbsp;&nbsp;&nbsp;";
+			print.innerHTML= str;				
+			}
+		})
+	})
+})
+</script>
+</head>
+<body>
+<a href="index.html">메인페이지로 돌아가기</a><br/>
+<h2>관리고객 찾기</h2>
+<form action="searchg" method="get">
+<label  for="gogekno">고객번호 : </label>
+<input type="text" id="gogekno" name="gogekno">
+<label  for="gogekname">고객명 : </label>
+<input type="text" id="gogekname" name="gogekname">
+<button type="button" id="btx">확인</button>
+</form>
+<hr/>
+<div id="print"></div>
+
+</body>
+</html>

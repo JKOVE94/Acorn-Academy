@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>RESTful API TEST</title>
+<script>
+const func1 = () => {
+	fetch('/hello',{method:'GET'})
+	.then(res => {
+		if(!res.ok){
+			throw new Error("res error");
+		}
+		else{
+			return res.text();
+		}
+	})
+	.then(data => {
+		document.getElementById('result').innerText = data;
+	})
+	.catch(error => {
+		document.getElementById('result').innerText = "err" + error;
+	});
+}
+
+const func2 = () => {
+	const inputval = document.getElementById('infoInput').value;
+	fetch(`/hello/${inputval}`,{method:'GET'})
+	.then(res => {
+		if(!res.ok){
+			throw new Error("res error2");
+		}
+		else{
+			return res.text();
+		}
+	})
+	.then(data => {
+		document.getElementById('result').innerText = data;
+	})
+	.catch(error => {
+		document.getElementById('result').innerText = "err2" + error;
+	});
+}
+
+const func3 = () => {
+	const nameVal = document.getElementById('name').value;
+	const ageVal = document.getElementById('age').value;
+	const url = `/world?name=${encodeURIComponent(nameVal)}&age=${encodeURIComponent(ageVal)}`;
+	console.log(url)
+	
+	fetch(url,{method:'GET'})
+	.then(res => {
+		if(!res.ok){
+			throw new Error("res error3");
+		}
+		else{
+			return res.text();
+		}
+	})
+	.then(data => {
+		document.getElementById('result').innerText = data;
+	})
+	.catch(error => {
+		document.getElementById('result').innerText = "err3" + error;
+	});
+}
+
+</script>
+</head>
+<body>
+<h2>RESTful API TEST</h2>
+<button onclick="func1()">GET요청 1</button><br/>
+
+<input type="text" id="infoInput" placeholder="info 입력">
+<button onclick="func2()">GET요청 2</button><br/>
+
+<input type="text" id="name" placeholder="name 입력">
+<input type="text" id="age" placeholder="age 입력">
+<button onclick="func3()">GET요청 3</button>
+<hr/>
+<div id="result"></div>
+</body>
+</html>

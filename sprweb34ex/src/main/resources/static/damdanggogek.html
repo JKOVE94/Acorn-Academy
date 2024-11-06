@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+    </script>
+<script>
+	
+		document.addEventListener('DOMContentLoaded', () => {
+			document.getElementById('bsubmit').addEventListener('click', () => {
+				const busername = document.querySelector('input[name="busername"]').value;
+				const print = document.getElementById('printbuser');
+				const print2 = document.getElementById('printgogek');
+				const coordsp1 = print.getBoundingClientRect();
+				const coordsp2 = print2.getBoundingClientRect();
+				window.scrollTo(coordsp1);
+				let str = "";
+				fetch(`searchb?busername=${busername}`)
+					.then(res => {
+						if (!res.ok) {
+							return new Error("res error");
+						}
+						else {
+							return res.json();
+						}
+					})
+					.then(response => {
+						data = response.datas;
+						if (1 === 0) {
+							print.innerHTML = "<h3>잘못된 부서정보입니다. 다시 입력해주세요</h3>";
+						}
+						else {
+							str += "<h2>" + data[0].jikbusername + " 직원 명부 </h2>"
+							str += "<table class='table'><tr><th>직원번호</th><th>직원명</th><th>부서전화</th><th>직급</th><th>관리고객수</th></tr>";
+							data.forEach(idx => {
+								str += "<tr><td>" + idx.jiknum + "</td>";
+								if (idx.jikdamgogek > 0) {
+									str += "<td><a href='#' class='getinfo' data-jiknum='" + idx.jiknum + "' data-jikname='" + idx.jikname + "'>" + idx.jikname + "</a></td>";
+								}
+								else {
+									str += "<td>" + idx.jikname + "</td>";
+								}
+								str += "<td>" + idx.jikbusertel + "</td>";
+								str += "<td>" + idx.jikjik + "</td>";
+								str += "<td>" + idx.jikdamgogek + "</td>";
+								str += "</tr>"
+								print.innerHTML = str;
+
+								const targetbtns = document.querySelectorAll('.getinfo');
+								let str2 = '';
+								targetbtns.forEach(targetbtn => {
+									targetbtn.addEventListener('click', event => {
+										window.scrollTo(coordsp2);
+										//event.preventDefault();
+										const jiknum = targetbtn.getAttribute('data-jiknum');
+										const jikname = targetbtn.getAttribute('data-jikname');
+										console.log(jiknum);
+										console.log(jikname);
+										fetch(`/damgo?jikwonno=${jiknum}`)
+											.then(res => {
+												if (!res.ok) {
+													return new Error("고객 정보 출력 문제");
+												}
+												else {
+													return res.json();
+												}
+											})
+											.then(response => {
+												const gogeks = response.datas;
+												str2 = "";
+												if (1 === 0) {
+													print2.innerHTML = "<h3>잘못된 정보입니다. 다시 입력해주세요</h3>";
+												}
+												else {
+													str2 += `<h2> ${jikname} 담당 고객 명부 </h2>`;
+													str2 += "<table class='table'><tr><th>고객번호</th><th>고객명</th><th>고객전화</th></tr>";
+													gogeks.forEach(idx => {
+														str2 += "<tr><td>" + idx.gnum + "</td>";
+														str2 += '<td data-toggle="tooltip" data-placement="top" title="주민등록번호 : '+idx.gjumin+'">' + idx.gname + '</td>';
+														str2 += "<td>" + idx.gtel + "</td>";
+														str2 += "</tr>"
+														print2.innerHTML = str2;
+													})
+												}
+												const hovers = document.querySelectorAll('.event')
+												hovers.forEach(hover => {
+													hover.addEventListener('mouseover', event => {
+														const jumin = hover.getAttribute('data-gjumin');
+														alert(jumin);
+
+													})
+												})
+											})
+									})
+								})
+							})
+						}
+					})
+
+					.catch(error => {
+						print2.innerHTML=""
+						print.innerHTML = "<h3>잘못된 부서정보입니다. 다시 입력해주세요</h3>";
+					})
+			})
+		})
+	</script>
+</head>
+
+<body>
+	<a href="index.html">메인페이지로 돌아가기</a>
+	<br />
+	<h2>부서별 담당고객 찾기</h2>
+	<h4>부서명을 입력하세요</h4>
+	<div class="input-group mb-3">
+		<input type="text" class="form-control" placeholder="부서명"
+			name="busername" aria-describedby="basic-addon2">
+		<div class="input-group-append">
+			<button class="btn btn-outline-secondary" type="button" id="bsubmit">확인</button>
+		</div>
+	</div>
+	<hr />
+	<div id="printbuser"></div>
+	<hr />
+	<div id="printgogek"></div>
+	<!-- 직원번호  직원명   부서전화    직급    관리고객수 -->
+	<!-- 관리고객 자료
+	고객번호  고객명   고객전화  -->
+	<!-- 직원이 관리하는 고객이 있으면 직원명에 링크가 걸리고 없으면 링크 X / 링크가 걸린 직원명을 클릭하면 관리고객 자료가 보인다 / 고객명에 마우스를 올리면 고객의 주민번호가 보이고 내리면 주민번호가 사라진다. -->
+</body>
+
+</html>
