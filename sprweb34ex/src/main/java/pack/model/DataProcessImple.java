@@ -37,6 +37,20 @@ public class DataProcessImple implements DataProcess{
 	}
 	
 	@Override
+	public boolean verifyLogin(String jikwonno, String jikwonname) {	
+		try {
+			int check = jikwonRepository.verifyLogin(jikwonno, jikwonname);
+			if(check>0) {
+				return true;
+			}
+			else return false;
+		}catch(NullPointerException e) {
+			return false;
+		}
+	}
+	
+	
+	@Override
 	public List<JikwonDto> getJikwonsWithBusername(String busername) {
 		List<Jikwon> list = jikwonRepository.getJikWithBuser(busername);
 		System.out.println(list.get(0).getJikwonname());

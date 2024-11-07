@@ -18,4 +18,7 @@ public interface JikwonRepository extends JpaRepository<Jikwon, Integer>{
 	
 	@Query("SELECT g FROM Jikwon AS j JOIN j.gogekList AS g WHERE j.jikwonno = ?1")
 	List<Gogek> getGogekWithJikwon(String jikwonno);
+	
+	@Query("SELECT j.jikwonno FROM Jikwon AS j WHERE j.jikwonno=?1 AND j.jikwonname=?2")
+	int verifyLogin(String jikwonno, String jikwonname);
 }

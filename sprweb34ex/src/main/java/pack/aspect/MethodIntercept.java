@@ -1,4 +1,4 @@
-package pack.model;
+package pack.aspect;
 
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;

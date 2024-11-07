@@ -13,6 +13,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import pack.dto.GogekDto;
 import pack.dto.JikwonDto;
 import pack.model.DataProcess;
@@ -35,6 +40,7 @@ public class ListController {
 		
 		return map1;
 	}
+	
 	@GetMapping("searchb")
 	public Map<String, Object> findBuser(@RequestParam("busername")String busername){
 		Map<String,String> map1;
@@ -53,7 +59,30 @@ public class ListController {
 		Map<String, Object> map2 = new HashMap<String, Object>(); 
 		map2.put("datas",list);
 		return map2;
-	}	
+	}
+	@GetMapping("logincheck")
+	public Map<String, Object> verifyLogin(@RequestParam("jikwonno") String jikwonno, @RequestParam("jikwonname") String jikwonname, HttpServletRequest req){
+		System.out.println(jikwonno+ " "+jikwonname);
+		Map<String, Object> map = new HashMap<String, Object>();
+		boolean result = process.verifyLogin(jikwonno, jikwonname);
+		HttpSession session = req.getSession();
+		if(result) session.setAttribute("login", true);
+		map.put("check", result);
+		return map;
+	}
+	@GetMapping("delCookie")
+	public void deleteCookie(HttpServletRequest req, HttpServletResponse resp) {
+		req.getSession().invalidate();
+        
+        // JSESSIONID 쿠키 삭제
+        Cookie cookie = new Cookie("JSESSIONID", null);
+        cookie.setPath("/"); // 기본적으로 모든 경로에서 유효하도록 설정
+        cookie.setMaxAge(0); // 쿠키 만료 시간을 0으로 설정하여 삭제
+        cookie.setHttpOnly(true); // HttpOnly로 설정하여 JavaScript에서 접근 불가하도록
+        cookie.setSecure(true); // 보안 프로토콜 사용 시 (https) 설정 (옵션)
+        resp.addCookie(cookie);
+
+	}
 	
 	@GetMapping("damgo")
 	public Map<String, Object> getGogeks(@RequestParam("jikwonno")String jikwonno){

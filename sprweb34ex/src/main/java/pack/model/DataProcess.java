@@ -9,4 +9,5 @@ public interface DataProcess {
 	JikwonDto getJikwon(String gogekgogekno, String gogekname);
 	List<JikwonDto> getJikwonsWithBusername(String busername);
 	List<GogekDto> getGogeksWithJikwonno(String jikwonno);
+	boolean verifyLogin(String jikwonno, String jikwonname);
 }

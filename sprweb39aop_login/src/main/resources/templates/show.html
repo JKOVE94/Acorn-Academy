@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<div th:if="${session.name} !=null">
+<a th:href="@{logout}">로그 아웃</a>
+</div>
+
+<h2>** 직원 자료 **</h2>
+<table border="1">
+<tr>
+<th>사번</th><th>직원명</th><th>직급</th><th>부서명</th><th>성별</th>
+</tr>
+<th:block th:if="${list.size>0}">
+<tr th:each="l:${list}">
+<td>[[${l.jikwonno}]]</td><td>[[${l.jikwonname}]]</td><td>[[${l.jikwonjik}]]</td><td>[[${l.buser.busername}]]</td><td>[[${l.jikwongen}]]</td>
+</tr>
+</th:block>
+</table>
+
+</body>
+</html>

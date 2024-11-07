@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script src="../asset/js/damdang.js"></script>
+</head>
+
+<body style="margin:50px">
+	<a href="index.html" class="btn btn-secondary">메인페이지로 돌아가기</a>&nbsp;&nbsp;
+	<a href="" class="btn btn-secondary" onclick="logout(event)">로그아웃</a><br/>
+	<br />
+	<h2>부서별 담당고객 찾기</h2>
+	<h4>부서명을 입력하세요</h4>
+	<div class="input-group mb-3">
+		<input type="text" class="form-control" placeholder="부서명"
+			name="busername" aria-describedby="basic-addon2">
+		<div class="input-group-append">
+			<button class="btn btn-outline-secondary" type="button" id="bsubmit">확인</button>
+		</div>
+	</div>
+	<hr />
+	<div id="printbuser"></div>
+	<hr />
+	<div id="printgogek"></div>
+	<!-- 직원번호  직원명   부서전화    직급    관리고객수 -->
+	<!-- 관리고객 자료
+	고객번호  고객명   고객전화  -->
+	<!-- 직원이 관리하는 고객이 있으면 직원명에 링크가 걸리고 없으면 링크 X / 링크가 걸린 직원명을 클릭하면 관리고객 자료가 보인다 / 고객명에 마우스를 올리면 고객의 주민번호가 보이고 내리면 주민번호가 사라진다. -->
+	<div id="last"></div>
+</body>
+
+</html>
