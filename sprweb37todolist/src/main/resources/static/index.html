@@ -13,10 +13,14 @@
   <h2 style="text-align:center">투두 리스트</h2>
   <a class="btn btn-primary" data-bs-toggle="offcanvas" href="#insert" role="button" aria-controls="offcanvasExample">
     투두리스트 입력
-  </a>
-  <div id="print"></div>
+  </a><br/><br/>
+  <div id="printN">
+  </div>
+  <div id="printY">
+  </div>
   
-  <a href="#" id="liveToastBtn">Show live toast</a>
+  <button id="liveToastBtn" style="display:none">토스트  표시 버튼</button>
+  
 <!-- 토스트 관련 코드 -->
   <div class="toast-container position-fixed bottom-0 end-0 p-3">
   <!-- class : (비활성화) toast fade hide | (활성화) toast fade show -->
@@ -27,8 +31,8 @@
       </div>
       <div class="toast-body">
         정말 삭제하시겠습니까?<br /><br />
-        <button class="btn btn-primary">네</button>
-        <button class="btn btn-secondary">아니요</button>
+        <button class="btn btn-primary" id="dyes">네</button>
+        <button class="btn btn-secondary" id="dno">아니요</button>
       </div>
     </div>
   </div>
@@ -40,7 +44,7 @@
   <div class="offcanvas offcanvas-start" tabindex="-1" id="insert" aria-labelledby="offcanvasExampleLabel">
     <div class="offcanvas-header">
       <h5 class="offcanvas-title" id="offcanvasExampleLabel">입력</h5>
-      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close" id="iclose"></button>
     </div>
     <div class="offcanvas-body">
       <br />
@@ -59,13 +63,13 @@
         </select><br />
         <label for='icompletedN'>실행 여부 </label>
         <div class="form-check">
-          <input class="form-check-input" type="radio" name="completed" id="icompletedN" checked>
+          <input class="form-check-input" type="radio" name="completed" id="icompletedN" value="false" checked>
           <label class="form-check-label" for="icompletedN">
             예정
           </label>
         </div>
         <div class="form-check">
-          <input class="form-check-input" type="radio" name="completed" id="icompletedY">
+          <input class="form-check-input" type="radio" name="completed" id="icompletedY" value="true">
           <label class="form-check-label" for="icompletedY">
             완료
           </label>
@@ -80,16 +84,16 @@
   <div class="offcanvas offcanvas-start" tabindex="-1" id="update" aria-labelledby="offcanvasExampleLabel">
     <div class="offcanvas-header">
       <h5 class="offcanvas-title" id="offcanvasExampleLabel">수정</h5>
-      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close" id="uclose"></button>
     </div>
     <div class="offcanvas-body">
       <br />
       <h3>투두 리스트 수정</h3>
       <form onSubmit="update(event)">
         <input type="hidden" id="uid" name="id">
-        <label for='ititle'>제목</label>
+        <label for='utitle'>제목</label>
         <input type="text" id='utitle' name="title" class="form-control"><br />
-        <label for='iorder'>우선 순위 </label>
+        <label for='uorder'>우선 순위 </label>
         <select class="form-select" aria-label="Default select example" id="uorder" name="order">
           <option selected disabled hidden>우선순위를 선택해주세요</option>
           <option value="1">1</option>
@@ -98,21 +102,22 @@
           <option value="4">4</option>
           <option value="5">5</option>
         </select><br />
-        <label for='icompletedN'>실행 여부 </label>
+        <label for='ucompletedN'>실행 여부 </label>
         <div class="form-check">
-          <input class="form-check-input" type="radio" name="completed" id="ucompletedN" checked>
+          <input class="form-check-input" type="radio" name="completed" id="ucompletedN" value=false>
           <label class="form-check-label" for="icompletedN">
             예정
           </label>
         </div>
         <div class="form-check">
-          <input class="form-check-input" type="radio" name="completed" id="ucompletedY">
+          <input class="form-check-input" type="radio" name="completed" id="ucompletedY" value=true>
           <label class="form-check-label" for="icompletedY">
             완료
           </label>
         </div>
 
         <button type="submit" class="btn btn-primary" class="form-control">수정</button>
+      </form>
     </div>
   </div>
 

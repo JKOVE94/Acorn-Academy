@@ -59,6 +59,8 @@ public class TodoController {
 	@PatchMapping("{id}")
 	public ResponseEntity<TodoResponse> update(@PathVariable("id")Integer id, @RequestBody TodoRequest request){
 		
+		System.out.println("id: "+id+" title :"+request.getTitle()+" Order : "+request.getOrder()+" completed : "+request.getCompleted());
+		
 		if(ObjectUtils.isEmpty(request.getTitle())) return ResponseEntity.badRequest().build(); //에러 확인 후 에러 코드를 반환
 		if(ObjectUtils.isEmpty(request.getOrder())) request.setOrder(0); //에러 확인 후 기본값 제공
 		if(ObjectUtils.isEmpty(request.getCompleted())) request.setCompleted(false); //에러 확인 후 기본값 제공

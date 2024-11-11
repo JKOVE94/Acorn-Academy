@@ -51,19 +51,13 @@ public class TodoServiceImpl implements TodoService{
 		TodoEntity todoEntity = TodoResponse.toEntity(serchById(id));
 		
 		if(request.getTitle() != null) {
-			todoEntity.builder()
-			.title(request.getTitle())
-			.build();
+			todoEntity.setTitle(request.getTitle());
 		}
 		if(request.getOrder()!= null) {
-			todoEntity.builder()
-			.order(request.getOrder())
-			.build();
+			todoEntity.setOrder(request.getOrder());
 		}
 		if(request.getCompleted() != null) {
-			todoEntity.builder()
-			.completed(request.getCompleted())
-			.build();
+			todoEntity.setCompleted(request.getCompleted());
 		}
 		return TodoResponse.fromEntity(todoRepository.save(todoEntity));
 	}

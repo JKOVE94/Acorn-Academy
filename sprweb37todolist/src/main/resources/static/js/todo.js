@@ -12,25 +12,48 @@ document.addEventListener('DOMContentLoaded',()=>{
       }
 })
  
-//----------------- 팝업과 관련된 함수들 ------------------
+//----------------- toast와 관련된 함수들 ------------------
 const toast = () =>{
-	const ttarget = document.getElementById('liveToast')
+	document.getElementById('liveToastBtn').click();
 }
 
+//----------------- toast과 관련된 함수들 ------------------
 
-//----------------- 팝업과 관련된 함수들 ------------------
+//오프캔버스를 사용함으로 발생한 문제! input과 update의 name이 동일하다보니 checked 
+const checkInput = word =>{
+	const userinput = word;
+	const completedInputs = document.querySelectorAll('input[name="completed"]');
+	const items = [];
+	completedInputs.forEach(input =>{
+		if(userinput=='i'){ //사용자가 i를 입력했을떄
+			if(/^i/.test(input.id)){ //id가 i로시작하는 경우
+				items.push(input);
+			}
+		}
+		else if(userinput=='u'){ //사용자가 u를 입력했을떄
+			if(/^u/.test(input.id)){
+				items.push(input);
+			}
+		}
+	})
+	
+	let checked = items.find(e=>e.checked)
+	return checked;
+	
+}
 
 
 //----------------- CRUD와 관련된 함수들 ------------------
   
   //READ
   const list = () =>{
-        const listTarget = document.getElementById('print');
-        let str1='';
+        const Nlist = document.getElementById('printN');
+        const Ylist = document.getElementById('printY');
+        let Nstr='';
+        let Ystr='';
         fetch('/api',{method:'GET'})
         .then(res =>{
             if(!res.ok){
- 			   	alert('a')
                 throw new Error('서버 에러');
             }
             else {
@@ -38,33 +61,98 @@ const toast = () =>{
             }
         })
         .then(datas =>{
-            str1+="<table class='table'><tr><th>번호</th><th>제목</th><th>우선순위</th><th>완료 여부</th><th>수정</th><th>삭제</th></tr>"
+			Nstr+="<h2>예정 항목</h2>"
+            Nstr+="<table class='table'><tr><th>번호</th><th>제목</th><th>우선순위</th><th>완료 여부</th><th>수정</th><th>삭제</th></tr>"
+			Ystr+="<h2>완료 항목</h2>"
+            Ystr+="<table class='table'><tr><th>번호</th><th>제목</th><th>우선순위</th><th>완료 여부</th><th>수정</th><th>삭제</th></tr>"
             datas.forEach(idx=>{
-                let complete = idx.completed?'완료':'예정';
-                str1+="<tr>"
-                str1+="<td>"+idx.id+"</td>"
-                str1+="<td>"+idx.title+"</td>"
-                str1+="<td>"+idx.order+"</td>"
-                str1+="<td>"+complete+"</td>"
-				//수정을 눌렀을 때 수정탭으로 이동할 수 있는 upProcess() 함수
-                str1+=`<td> <a href="#update" data-bs-toggle="offcanvas" onclick="upProcess(${idx.id})">수정</a> </td>`
-				//삭제를 눌렀을 때 삭제탭으로 이동할 수 있는 delProcess() 함수
-                str1+=`<td> <a href="#" id="liveToastBtn" onclick="delProcess(${idx.id})">삭제</a> </td>`
-                str1+="</tr>"
+				if(!idx.completed){
+	                let complete = idx.completed?'완료':'예정';
+	                Nstr+="<tr>"
+	                Nstr+="<td>"+idx.id+"</td>"
+	                Nstr+="<td>"+idx.title+"</td>"
+	                Nstr+="<td>"+idx.order+"</td>"
+	                Nstr+="<td>"+complete+"</td>"
+					//수정을 눌렀을 때 수정탭으로 이동할 수 있는 upProcess() 함수
+	                Nstr+=`<td> <a href="#update" data-bs-toggle="offcanvas" onclick="upProcess(${idx.id})">수정</a> </td>`
+					//삭제를 눌렀을 때 삭제탭으로 이동할 수 있는 delProcess() 함수
+	                Nstr+=`<td> <a href="#" onclick="delProcess(${idx.id})">삭제</a> </td>`
+	                Nstr+="</tr>"
+				}
+				else{
+					let complete = idx.completed?'완료':'예정';
+	                Ystr+="<tr>"
+	                Ystr+="<td>"+idx.id+"</td>"
+	                Ystr+="<td>"+idx.title+"</td>"
+	                Ystr+="<td>"+idx.order+"</td>"
+	                Ystr+="<td>"+complete+"</td>"
+					//수정을 눌렀을 때 수정탭으로 이동할 수 있는 upProcess() 함수
+	                Ystr+=`<td> <a href="#update" data-bs-toggle="offcanvas" onclick="upProcess(${idx.id})">수정</a> </td>`
+					//삭제를 눌렀을 때 삭제탭으로 이동할 수 있는 delProcess() 함수
+	                Ystr+=`<td> <a href="#" onclick="delProcess(${idx.id})">삭제</a> </td>`
+	                Ystr+="</tr>"
+				}
             })
-            str1+="</table>"
-            listTarget.innerHTML=str1;
+            Nstr+="</table><br/>"
+            Nlist.innerHTML=Nstr;
+            Ystr+="</table>"
+            Ylist.innerHTML=Ystr;
 
         })
         .catch(err =>{
     		console.log("불러오기 에러"+err);
     	})
-    }
-
-    //UPDATE 탭으로 이동, 데이터 채우기
-    const upProcess = code =>{
-		listToUpdate();
-		fetch(`/sangpum/${code}`)
+    } 
+    
+    //DELETE 토스트 버튼 활성화, 질문후 삭제 진행
+    const delProcess = code =>{
+		toast();
+        const id = code; //list에서 받은 code 상수화
+		
+		//유저가 yes버튼을 눌렀을 떄 삭제 진행
+        document.getElementById('dyes').onclick = () =>{
+            fetch(`/api/${id}`,{method:'DELETE'})
+            .then(res=>{
+                if(!res.ok){
+                    throw new Error('삭제 에러')
+                }
+                else {
+                    list(); //GET 요청
+                }
+            })
+        }
+		
+		//유저가 no버튼을 눌렀을 때 메인 페이지로 이동
+		document.getElementById('dno').onclick = () =>{
+			document.querySelector('button[aria-label="Close"]').click();
+            list(); //GET 요청
+        }
+	}
+        
+    //INSERT
+    const input = event =>{
+        event.preventDefault();
+        const title = document.getElementById('ititle').value;
+        const order = document.getElementById('iorder').value;
+        const completed = checkInput('i').value;
+        const ijson= {"title":title,"order":order,"completed":completed};
+        fetch('/api',{method:"POST", 
+            headers:{"Content-Type":"application/json"},
+            body:JSON.stringify(ijson)})
+        .then(res=>{
+            if(!res.ok){
+                throw new Error('입력 오류');
+            }
+            else {
+                list(); //GET 요청
+				document.getElementById('iclose').click();
+            }
+        })
+    } 
+	
+	//UPDATE , 데이터 채우기
+	const upProcess = id =>{
+		fetch(`/api/${id}`)
 		.then(res =>{
 			if(!res.ok){
 				throw new Error('데이터 하나 가져오기 에러');
@@ -73,71 +161,26 @@ const toast = () =>{
 		})
 		.then(data =>{
 			//UPDATE의 input value 채우기
-            document.getElementById('showucode').innerText=data.code;
-			document.getElementById('ucode').value=data.code;
-			document.getElementById('usang').value=data.sang;
-			document.getElementById('usu').value=data.su;
-			document.getElementById('udan').value=data.dan;
+	        document.getElementById('uid').value=data.id;
+			document.getElementById('utitle').value=data.title;
+			document.getElementById('uorder').value=data.order;
+			if(data.completed==false){
+				document.getElementById('ucompletedN').checked=true;	
+			}
+			else document.getElementById('ucompletedY').checked=true;
 		})
-    }
- 
-    
-    //DELETE 탭으로 이동, 질문후 삭제 진행
-    const delProcess = code =>{
-		listToDelete();	 //delete 탭으로 이동
-        const code1 = code; //list에서 받은 code 상수화
-		
-		//유저가 yes버튼을 눌렀을 떄 삭제 진행
-        document.getElementById('dyes').onclick = () =>{
-            fetch(`/sangpum/${code1}`,{method:'DELETE'})
-            .then(res=>{
-                if(!res.ok){
-                    throw new Error('삭제 에러')
-                }
-                else {
-                    deleteToList(); //DELETE 마치고 LIST로 이동
-                    list(); //GET 요청
-                }
-            })
-        }
-		
-		//유저가 no버튼을 눌렀을 때 메인 페이지로 이동
-		document.getElementById('dno').onclick = () =>{
-            deleteToList(); //DELETE를 진행하지 않고 list로 이동
-            list(); //GET 요청
-        }
 	}
-        
-    //INSERT
-    const input = event =>{
-        event.preventDefault();
-        const isang = document.getElementById('isang').value;
-        const isu = document.getElementById('isu').value;
-        const idan = document.getElementById('idan').value;
-        const ijson= {'sang':isang,'su':isu,'dan':idan};
-        fetch('/sangpum',{method:"POST", 
-            headers:{"Content-Type":"application/json"},
-            body:JSON.stringify(ijson)})
-        .then(res=>{
-            if(!res.ok){
-                throw new Error('입력 오류');
-            }
-            else {
-				insertToList(); //INSERT마치고 list로 이동
-                list(); //GET 요청
-            }
-        })
-    } 
 
     //UPDATE
     const update = event =>{
         event.preventDefault();
-        const ucode = document.getElementById('ucode').value;
-        const usang = document.getElementById('usang').value;
-        const usu = document.getElementById('usu').value;
-        const udan = document.getElementById('udan').value;
-        const ujson= {'code':ucode,'sang':usang,'su':usu,'dan':udan};
-        fetch('/sangpum',{method:"PUT", 
+        const uid = document.getElementById('uid').value;
+        const utitle = document.getElementById('utitle').value;
+        const uorder = document.getElementById('uorder').value;
+        let ucompleted = checkInput('u').value;
+        const ujson= {"title":utitle,"order":uorder,"completed":ucompleted};
+		
+        fetch(`/api/${uid}`,{method:"PATCH", 
             headers:{"Content-Type":"application/json"},
             body:JSON.stringify(ujson)})
         .then(res=>{
@@ -145,8 +188,8 @@ const toast = () =>{
                 throw new Error('수정 오류');
             }
             else {
-            	updateToList(); //UPDATE마치고 list로 이동
                 list(); //GET 요청
+				document.getElementById('uclose').click();
             }
         })
     } 

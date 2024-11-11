@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+* 파일 업로드/ 다운로드 * <br/>
+<form th:action="@{upload}" method="post" enctype="multipart/form-data">
+업로드할 파일 선택 : <input type="file" name="myFile"><br/>
+<button>업로드 확인</button>
+</form>
+</body>
+</html>
