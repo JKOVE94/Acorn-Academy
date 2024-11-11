@@ -82,7 +82,6 @@ document.addEventListener('DOMContentLoaded', () => {
 											hovers.forEach(hover => {
 												hover.addEventListener('mouseover', event => {
 													const jumin = hover.getAttribute('data-gjumin');
-													alert(jumin);
 
 												})
 											})
