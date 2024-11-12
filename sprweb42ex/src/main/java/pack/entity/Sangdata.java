@@ -2,6 +2,7 @@ package pack.entity;
 
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -21,8 +22,6 @@ public class Sangdata {
 	private int su;
 	private int dan;
 	
-	@OneToMany(mappedBy = "sangdata")
+	@OneToMany(mappedBy = "sangdata", cascade = CascadeType.ALL, orphanRemoval = true) 
 	private List<Sajindata> sajinList;
-	
-	
 }

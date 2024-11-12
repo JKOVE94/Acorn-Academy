@@ -1,1 +1,7 @@
 /.metadata/
+*.jar
+*.pom
+*.bin
+*.marker
+*.log
+*.lock

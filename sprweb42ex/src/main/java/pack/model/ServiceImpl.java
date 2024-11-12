@@ -1,16 +1,17 @@
 package pack.model;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import jakarta.transaction.Transactional;
 import pack.controller.SajinForm;
 import pack.controller.SangForm;
-import pack.dto.SajinDto;
 import pack.dto.SangDto;
+import pack.entity.Sajindata;
+import pack.entity.Sangdata;
 import pack.repository.SajindataRepository;
 import pack.repository.SangdataRepository;
 
@@ -26,7 +27,6 @@ public class ServiceImpl implements Service{
 	
 	@Override
 	public List<SangDto> getSangpumlist(){
-		System.out.println("사진 주소 :" + sangdataRepository.findById(8).get().getSajinList().get(0).getFilepath());
 		return sangdataRepository.findAll().stream()
 				.map(SangDto :: fromEntity)
 				.collect(Collectors.toList());
@@ -38,12 +38,22 @@ public class ServiceImpl implements Service{
 	}	
 	
 	@Override
-	public void uploadSang(SangForm form) {
-		sangdataRepository.save(SangForm.toEntity(form));
+	@Transactional
+	public Sangdata uploadSang(SangForm form) {
+		Sangdata savedSangdata = sangdataRepository.save(SangForm.toEntity(form));
+		System.out.println("savedSangdata"+savedSangdata);
+		return savedSangdata;
 	}
 	
 	@Override
-	public void uploadPic(SajinForm form) {
-		sajindataRepository.save(SajinForm.toEntity(form));
+	@Transactional
+	public void uploadPic(SangForm sangform, SajinForm form) {
+		Sajindata data = new Sajindata();
+		data.setAbout(form.getAbout());
+		data.setFilepath(form.getFilepath());
+		data.setSangdata(uploadSang(sangform));
+		data.setUploadat(form.getUploadat());
+		
+		sajindataRepository.save(data);
 	}
 }

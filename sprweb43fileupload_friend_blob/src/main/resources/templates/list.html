@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h2>* 친구 정보 *</h2>
+<div><a th:href="@{/insert}">친구 추가</a></div>
+<div>
+	<form th:action="@{/logout}" method="post">
+		<input type="hidden" name="${__csrf.parameterName}" value="${__csrf.token}" />
+		<button type="submit">로그아웃</button>
+	</form>
+</div>
+<table border="1">
+<tr>
+<th>번호</th><th>이름</th><th>전화</th><th>직업</th><th>사진</th>
+</tr>
+<th:block th:if="${friends.size>0}">
+	<tr th:each="f : ${friends}">
+		<td>[[${f.bunho}]]</td>
+		<td>[[${f.irum}]]</td>
+		<td>[[${f.junhwa}]]</td>
+		<td>[[${f.jikup}]]</td>
+		<td>
+			<img th:src="'data:' + ${f.imagetype} + ';base64,' + ${f.base64Image}" style="width:150px; height:auto" alt="이미지"/>
+		</td>
+	</tr>
+</th:block>
+</table>
+</body>
+</html>

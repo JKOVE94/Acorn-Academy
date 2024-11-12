@@ -13,8 +13,8 @@ public class SajinForm {
 
 	private String about;
 	private String filepath;	
-	private Sangdata sangdata;
 	private LocalDate uploadat;
+	private Sangdata sangdata;
 
 	SajinForm(){
 		this.uploadat = LocalDate.now();

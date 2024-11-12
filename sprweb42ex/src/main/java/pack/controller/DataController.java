@@ -21,14 +21,14 @@ public class DataController {
 	@Autowired
 	private Service service;
 	
-	@GetMapping("getinfo/{code}")
+	@GetMapping("/getinfo/{code}")
 	public Map<String, Object> getMethodName(@PathVariable("code")int code) {
 		SangDto dto = service.getSang(code);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("data", dto);
 		return map;
 	}
-	@GetMapping("getinfo")
+	@GetMapping("/getinfo")
 	public Map<String, Object> getAlldata(){
 		List<Map<String,String>> list = new ArrayList<Map<String,String>>();
 		Map<String, String> map;
@@ -38,7 +38,7 @@ public class DataController {
 			map.put("sang", d.getSang());
 			map.put("su", String.valueOf(d.getSu()));
 			map.put("dan", String.valueOf(d.getDan()));
-			if(d.getSajinList()!=null && d.getSajinList().size()>0) {
+			if(d.getSajinList().size()>0 && !d.getSajinList().isEmpty()) {
 				map.put("path",d.getSajinList().get(0).getFilepath());
 				map.put("about", d.getSajinList().get(0).getAbout());
 			}

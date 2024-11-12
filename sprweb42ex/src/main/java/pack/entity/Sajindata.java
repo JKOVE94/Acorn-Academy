@@ -2,6 +2,7 @@ package pack.entity;
 
 import java.time.LocalDate;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -26,7 +27,7 @@ public class Sajindata {
 	private LocalDate uploadat;
 	private String filepath;
 	
-	@ManyToOne
-	@JoinColumn(name="sangcode")
+	@ManyToOne(cascade = CascadeType.PERSIST)
+	@JoinColumn(name="sangcode", nullable = false)
 	private Sangdata sangdata;
 }
