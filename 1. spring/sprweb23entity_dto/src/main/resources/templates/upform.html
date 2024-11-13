@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<form method="post" th:action="@{/update}" th:object="${dto}">
+부서번호 : <input type="text" name="buserno" th:value="*{buserno}"><br/>
+부서명 : <input type="text" name="busername" th:value="*{busername}"><br/>
+부서 위치 : <input type="text" name="buserloc" th:value="*{buserloc}"><br/>
+부서 연락처 : <input type="text" name="busertel" th:value="*{busertel}"><br/>
+<button>입력</button>
+<br/>
+<a th:href="@{/list}">리스트로 돌아가기</a>
+</form>
+</body>
+</html>

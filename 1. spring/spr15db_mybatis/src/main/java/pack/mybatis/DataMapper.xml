@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="dev">
+
+ <select id="selectDataAll" resultType="dto">  <!-- 반환타입은 기본으로 list collection -->
+  SELECT code, sang, su, dan FROM sangdata
+ </select>
+ 
+ <!-- 재사용 구문은 별도 작성 가능 -->
+<sql id="my1">id, name, passwd, regdate </sql>
+<sql id="my2">FROM membertab WHERE id=#{id}</sql>
+ 
+ <select id="selectDataByPart" parameterType="String" resultType="dto" statementType="PREPARED"> <!-- 기본값은 Prepared statement -->
+ select 
+ <include refid="my1"/> 
+ <include refid="my2"/>
+ </select>
+ 
+ 
+ <delete id="deleteData" parameterType="String" >
+ DELETE <include refid="my2"/>
+ </delete>
+ 
+</mapper>

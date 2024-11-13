@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Insert title here</title>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.1/sockjs.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+		<script src="./js/websocket.js"></script>
+	</head>
+	<body>
+		<h2>실시간 소셜 미디어 알림 (친구요청, 댓글, 좋아요)</h2>
+		<div>
+			사용자 이름 : <input type="text" id="fromUser" placeholder="이름입력">
+		</div>
+		<br/>
+		<div>
+			이벤트 발생<br/>
+			<button onclick="sendRequest()">친구 요청</button>
+			<button onclick="sendComment()">댓글 달기</button>
+			<button onclick="sendLike()">좋아요</button>
+		</div>
+		<br/>
+		<div>
+			<b>알림</b>
+			<ul id="notiShow"></ul>
+		</div>
+	</body>
+</html>

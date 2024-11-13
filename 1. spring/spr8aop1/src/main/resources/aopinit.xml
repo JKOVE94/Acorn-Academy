@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+	<!-- target / AOP기준 target, 실제 프로젝트 기준 핵심 -->
+	<bean id="targetClass" class="pack.MessageImpl">
+		<property name="name" value="한국인" />
+	</bean>
+
+	<!-- Advice(Aspect)를 Target에 위빙 -->
+	<bean id="loggingAdvice" class="advice.LoggingAdvice" />
+
+	<!-- Proxy를 통한 간접 접근 -->
+	<bean id="proxy" class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="target">
+			<ref bean="targetClass" />
+		</property>
+		<property name="interceptorNames"> <!-- Collection List -->
+			<list>
+				<value>hiAdvisor</value> <!-- 인터셉터는 여러개 걸 수 있다. 그렇기 때문에 List Collection으로 이루어져 있다. -->
+			</list>
+		</property>
+	</bean>
+
+	<!-- Advisor(Advise+Pointcut) 설정 -->
+	<bean id="hiAdvisor" class="org.springframework.aop.support.DefaultPointcutAdvisor">
+		<property name="advice">
+			<ref bean="loggingAdvice" />
+		</property>
+		<property name="pointcut">
+			<bean class="org.springframework.aop.support.JdkRegexpMethodPointcut">
+			<property name="pattern">
+				<!-- 현재 패키지 안에 모든 파일, sayHi가 포함되어있는 모든 메소드가 pointcut 대상이된다. -->
+				<value>.*sayHi*.</value>
+			</property>
+			</bean>
+			
+		</property>
+	</bean>
+</beans>

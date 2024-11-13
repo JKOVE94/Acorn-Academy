@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<script>
+	function func() {
+		f.action = "test5";
+		f.method = "post"; //POST방식
+		f.submit();
+	}
+</script>
+<body>
+환영합니다. 스프링 부트의 세계로 오신것을. Good!<br>
+<!-- 논리적인 요청 URI -->
+<a href="test1">컨트롤러 만나기1</a><br/> 
+<a href="test2">컨트롤러 만나기2</a><br/> 
+<a href="test3">컨트롤러 만나기3</a><br/> 
+<a href="test4">컨트롤러 만나기4</a><br/> 
+<hr/>
+<form method="post" action="test5">
+<input type="submit" value="컨트롤러 만나기 5">
+</form>
+
+<a href="javascript:func();">컨트롤러 만나기5</a><br/> 
+ <form name="f"></form>
+<form method="post" action="test6">
+<input type="submit" value="컨트롤러 만나기 6">
+</form>
+<form method="post" action="test7">
+<input type="submit" value="컨트롤러 만나기 7">
+</form>
+<a href="test8">data 얻기</a>
+<a href="test8_1">data 얻기2</a>
+
+<hr/>
+두번째 컨트롤러로 작업하기 <br/>
+<form method="get" action="test9">
+<input type="submit" value="컨트롤러 만나기 9 - get">
+</form>
+<form method="post" action="test9">
+<input type="submit" value="컨트롤러 만나기 9 - post">
+</form>
+
+<hr/>
+세번째 컨트롤러로 작업하기 <br/>
+<a href="java/korea">컨트롤러 만나기 10 - korea</a><br/>
+<a href="java/good">컨트롤러 만나기 10 - good</a><br/>
+<a href="nice">컨트롤러 만나기 10 - nice</a><br/>
+<a href="ok">컨트롤러 만나기 10 - ok</a><br/>
+
+<form method="post" action="test11">
+<input type="submit" value="컨트롤러 만나기 11 - post">
+</form>
+
+
+</body>
+</html>

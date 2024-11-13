@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>부서와 평가등급으로 직원 찾기</title>
+<script type="text/javascript"
+	src="http://code.jquery.com/jquery-latest.js"></script>
+<script>
+$(document).ready(()=>{
+	$.ajax({
+		type:'GET',
+		url:'/bu',
+		success: response => {
+		let str1 = "";
+		const busername = response.jlist;
+		$(busername).each((index,arr) => {
+			str1+='<option value="'+arr+'">'+arr+"</option>";
+		})
+		$('#selectbx').append(str1);
+	},
+	error: ()=>{}})
+
+	$('#btn').click(()=>{
+		const selectBu = $('#selectbx').val();
+    	const selectRating = document.querySelector('input[name="jikwonrating"]:checked').value;
+	$.ajax({
+		type:'get',
+		url:'/getbulist',
+		data:{
+			'busername':selectBu,
+			'jikwonrating':selectRating
+		},
+		success: response => {
+			let str2 = "";
+			let totalsal=0;
+			let count=0;
+			const jikwonjik = response.datas;
+			str2+=jikwonjik[0].buser+ "인 직원:<br/>"
+			str2+="<table border='1'><tr><th>사번</th><th>이름</th><th>직급</th><th>연봉</th><th>평가</th>"
+			jikwonjik.forEach(index => {
+				str2+="<tr>"
+				str2+="<td>"+index.no + "</td>"
+				str2+="<td>"+index.name + "</td>"
+				str2+="<td>"+index.jik + "</td>"
+				str2+="<td>"+index.pay + "</td>"
+				str2+="<td>"+index.rate + "</td>"
+				str2+="</tr>"
+				count++;
+				totalsal+=Number(index.pay);
+			})
+			str2+="<tr><td colspan='5'> 연봉 평균 : "+ (totalsal/count).toFixed(1) +"</td></tr>"
+			str2+="</table>"
+			$('#print').html(str2);
+		},
+		error: () => {}
+	})
+	})
+})
+</script>
+</head>
+<body>
+	<h2>* 부서와 평가등급으로 직원 찾기 *</h2>
+	<a href="/">돌아가기</a>
+	<form method="post" action="getlist">
+		부서명 : <select id="selectbx" name="busername"></select>
+		<button type="button" id="btn">확인</button>
+		<br /> 평가등급 <input type="radio" name="jikwonrating" value=""
+			checked="checked"> 전체 &nbsp; <input type="radio"
+			name="jikwonrating" value="a"> a &nbsp; <input type="radio"
+			name="jikwonrating" value="b"> b &nbsp; <input type="radio"
+			name="jikwonrating" value="c"> c &nbsp; <input type="radio"
+			name="jikwonrating" value="d"> d &nbsp;
+	</form>
+	<hr />
+	<div id="print"></div>
+</body>
+</html>

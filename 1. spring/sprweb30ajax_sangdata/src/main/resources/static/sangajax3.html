@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript"
+	src="http://code.jquery.com/jquery-latest.js"></script>
+<script>
+//jquery는 내부적으로 DOM을 지원
+	document.addEventListener('DOMContentLoaded',()=>{
+		document.querySelector('#btnShow').addEventListener('click',()=>{
+			fetch("sangpums")
+				.then(response =>{
+					if(!response.ok){
+						throw new Error("네트워크 오류")
+					}
+					return response.json();
+				})
+				.then(sangpumdatas =>{
+					let str = "";
+					const sdatas = sangpumdatas.datas;
+					sdatas.forEach(arr => {
+						str += '<tr>';
+						str += '<td>' + arr['code']+'</td>';
+						str += '<td>' + arr['sang']+'</td>';
+						str += '<td>' + arr['su']+'</td>';
+						str += '<td>' + arr.dan + '</td>';
+						str += '</tr>';
+					});
+					document.querySelector("tbody").innerHTML = str;
+				})
+				.catch(error =>{
+					document.querySelector('#showErr').textContent = '에러 발생 : '+ error.message;
+				});
+		})
+	});
+				
+</script>
+</head>
+
+<body>
+	<h2>상품리스트 (@MVC + Ajax + JPA)</h2>
+	<a href="#" onclick="history.back()">돌아가기</a><br/>
+	<button id="btnShow">상품 정보 보여줘2 !</button>
+	<br />
+	<br />
+	<table border="1">
+		<thead>
+			<tr>
+				<th>코드</th><th>품명</th><th>수량</th><th>단가</th>
+			</tr>
+		</thead>
+		<tbody>
+		</tbody>
+	</table>
+	<hr />
+
+	<div id="showErr"></div>
+</body>
+
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script>
+const updateMem = () =>{
+	const num = document.querySelector('input[name="num"]').value;
+	const name = document.querySelector('input[name="name"]').value;
+	const addr = document.querySelector('input[name="addr"]').value;
+	const jdata = {'num':num,'name':name,'addr':addr};
+	fetch('/api/members',
+		{method:'PUT',
+		headers:{
+			"Content-Type":"application/json"
+		},
+			body:JSON.stringify(jdata)
+		})
+		.then(res => {
+			if(!res.ok){
+				throw new Error('회원 수정 실패');
+			}
+			else{
+				return res.json();
+			}
+		})
+		.then(data =>{
+			if(data.isSuccess){
+				alert('회원 수정 성공');
+				location.href='/members/list';
+			}
+		})
+		.catch(err=>{
+			console.log("오류 :", err);
+		})
+}
+</script>
+</head>
+<body>
+** 자료 수정 **
+<form onsubmit="event.preventDefault(); updateMem()">
+	<input type="hidden" name="num" th:value="${data.num}">
+	번호 : <span>[[${data.num}]]</span><br/>
+	이름 : <input type="text" name="name" th:value="${data.name}"><br/>
+	주소 : <input type="text" name="addr" th:value="${data.addr}"><br/>
+<button>수정</button>
+</form>
+</body>
+</html>

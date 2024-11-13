@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // alert('a');
+            document.querySelector('#btnSingle').addEventListener('click', () => {
+                document.querySelector('#showData').innerHTML = '';
+                axios.get('list', {
+                    params: {
+                        name: 'tom'
+                    }
+                })
+                    .then(response => {
+                        let str = response.data.name + '<br>';
+                        str += response.data.skills[0] + " ";
+                        str += response.data.skills[1];
+                        document.querySelector('#showData').innerHTML = str;
+                    })
+                    .catch(() => {
+                        document.querySelector('#showData').innerHTML = '<b>에러</b>발생';
+                    })
+            })
+            document.querySelector('#btnMulti').addEventListener('click', () => {
+                document.querySelector('#showData').innerHTML = '';
+                axios.get('list2')
+                    .then(response => {
+                        let str = '<table>';
+                        let list = response.data.datas;
+                        list.forEach(objArr => {
+                            str += "<tr>";
+                            str += "<td>" + objArr['name'] + "</td>";
+                            str += "<td>" + objArr.age + "</td>";
+                            str += "</tr>";
+                        });
+                        str += '</table>';
+                        document.querySelector('#showData').innerHTML = str;
+                    })
+                    .catch(() => {
+                        document.querySelector('#showData').innerHTML = '<b>에러</b>발생';
+                    })
+            });
+        });
+    </script>
+</head>
+
+<body>
+    JSON 읽기 (axios)<br />
+    <button type="button" id="btnSingle">한개의 자료 읽기</button><br />
+    <button type="button" id="btnMulti">여러개의 자료 읽기</button><br />
+    <hr />
+    <div id="showData"></div>
+</body>
+
+</html>

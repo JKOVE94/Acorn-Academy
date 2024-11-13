@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>상품 정보</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/asset/css/sang.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="/asset/js/sang.js"></script>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 style="text-align:center">상품 정보</h1><br/>
+        <!-- 인덱스 -->
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="list-tab" data-toggle="tab" href="#list" role="tab" aria-controls="list" aria-selected="true" onclick="hideother()">상품 리스트</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="insert-tab" data-toggle="tab" href="#insert" role="tab" aria-controls="insert" aria-selected="false" onclick="hideother()">상품 등록</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link hide" id="update-tab" data-toggle="tab" href="#update" role="tab" aria-controls="update" aria-selected="false">상품 정보 수정</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link hide" id="delete-tab" data-toggle="tab" href="#delete" role="tab" aria-controls="delete" aria-selected="false">상품 삭제</a>
+            </li>
+        </ul>
+        <!-- 내용 -->
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="list" role="tabpanel" aria-labelledby="list-tab">
+               <br/>
+                <h3>상품 리스트</h3>
+                <div id="sanglist"></div>
+            </div>
+            <div class="tab-pane fade" id="insert" role="tabpanel" aria-labelledby="insert-tab">
+                <br/><h3>상품 등록</h3>
+                <form onSubmit="input(event)">
+	                <label for='isang'>품명 : </label>
+	                <input type="text" id='isang' name="sang" class="form-control"><br/>
+	                <label for='isu'>수량 : </label>
+                    <input type="text" id='isu' name="su" class="form-control"><br/>
+	                <label for='idan'>단가 : </label>
+                    <input type="text" id='idan' name="dan" class="form-control"><br/><br/>
+                    <button type="submit" class="btn btn-primary" class="form-control">등록</button>
+                    <button type="button" class="btn btn-secondary" onclick="gohome()">등록 취소</button>
+                </form>
+            </div>
+            <div class="tab-pane fade" id="update" role="tabpanel" aria-labelledby="update-tab">
+                <br/><h3>상품 정보 수정</h3>
+                <form onSubmit="update(event)">
+                    <input type="hidden" id='ucode' name="code"><br/>
+                    코드 : <span id="showucode"></span><br/>
+	                <label for='usang'>품명 : </label>
+                    <input type="text" id='usang' name="sang" class="form-control"><br/>
+	                <label for='usu'>수량 : </label>
+                    <input type="text" id='usu' name="su" class="form-control"><br/>
+	                <label for='udan'>단가 : </label>
+                    <input type="text" id='udan' name="dan" class="form-control"><br/>
+                    <button class="btn btn-primary">수정</button>
+                    <button type="button"  class="btn btn-secondary" onclick="gohome()">수정 취소</button>
+                </form>
+            </div>
+            <div class="tab-pane fade" id="delete" role="tabpanel" aria-labelledby="delete-tab">
+                <br/><h3>상품 삭제</h3>
+                <h5>정말 삭제하시겠습니까?</h5>
+                <button class="btn btn-primary" id="dyes">네</button>
+                <button type="button"  class="btn btn-secondary" id="dno">아니요</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

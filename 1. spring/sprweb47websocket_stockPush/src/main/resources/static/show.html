@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.1/sockjs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+<script>
+const socket = new WebSocket('ws://192.168.0.47:8080/stock-price');
+
+socket.onopen = () =>{
+	document.getElementById('price').innerText = '연결됨';
+}
+
+socket.onmessage = event =>{
+	document.getElementById('price').innerText = event.data;
+}
+
+socket.onclose = () =>{
+	document.getElementById('price').innerText = '연결중지';
+}
+
+</script>
+</head>
+<body>
+<h2>에이콘 아카데미 최신 주식 가격</h2>
+<div id="price">연결중...</div>
+</body>
+</html>

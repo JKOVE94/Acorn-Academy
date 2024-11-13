@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script>
+    window.onload = function(){
+    const frm = document.getElementById('frm');
+        document.getElementById('btnList').addEventListener("click", () =>{
+            location.href = "list";
+        });
+        document.getElementById('btnUp').addEventListener("click", () =>{
+            if(confirm("수정하시겠습니까?")){
+            	//입력자료 오류 검사를 해야만 한다.
+                frm.action = "/update";
+                frm.method = "post";
+                frm.submit();
+            }
+        });
+        document.getElementById('btnDel').addEventListener("click", () =>{
+            if(confirm("삭제하시겠습니까?")){
+                frm.action = "/delete";
+                frm.method = "get";
+                frm.submit();
+            }
+        });
+    }
+</script>
+</head>
+<body>
+<h2>* 상세보기 *</h2>
+<form name="frm" th:object="${board}" id="frm">
+글번호 : [[*{num}]]<br/>
+<input type="hidden" th:field="*{num}"><br/>
+작성자 : <input tyle="text" th:field="*{author}"><br/>
+글제목 : <input tyle="text" th:field="*{title}"><br/>
+글내용 : <textarea rows="5" cols="50" th:field="*{content}"></textarea><br/>
+작성일 : [[*{bwrite}]]<br/>
+조회수 : [[*{readcnt}]]<br/>
+<input type="button" id="btnUp" value="수정">
+<input type="button" id="btnDel" value="삭제">
+<input type="button" id="btnList" value="목록">
+</form>
+</body>
+</html>

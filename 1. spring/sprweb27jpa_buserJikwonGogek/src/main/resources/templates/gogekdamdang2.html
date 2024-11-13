@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+.info{
+	margin:2px 0;
+	padding:5px;
+	border : 1px solid #ddd;
+	border-radius: 5px;
+}
+</style>
+</head>
+<body>
+	<h2>고객 담당 직원 정보</h2>
+	<a href="javascript:history.back()">이전</a>
+	<div th:each="d : ${dlist}" class="info">
+	[[${d}]]
+	</div>
+
+</body>
+</html>

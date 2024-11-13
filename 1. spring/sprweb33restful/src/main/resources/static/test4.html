@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script>
+const func1 = () =>{
+	const delnum = document.querySelector('#delNum').value;
+	fetch(`/hidelete/${delnum}`,{method:'DELETE'})
+	.then(res => {
+		if(!res.ok){
+			throw new Error("res error");
+		}
+		else{
+			return res.text();
+		}
+	})
+	.then(data => {
+		document.getElementById('result1').innerText = data;
+	})
+	.catch(error => {
+		document.getElementById('result1').innerText = "err" + error;
+	});
+}
+</script>
+</head>
+<body>
+<h2>RESTful API TEST : DELETE</h2>
+<input type="text" id="delNum" placeholder="삭제할 번호 입력">
+<button onclick="func1()">DELETE요청 1</button><br/><br/>
+
+<hr/>
+<div id="result1"></div>
+</body>
+</html>

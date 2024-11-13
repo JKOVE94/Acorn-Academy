@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>파일 삽입</title>
+</head>
+<body>
+<h2>파일 삽입 연습</h2>
+<th:block th:insert="~{/layouts/header}"></th:block>
+<h1>본문</h1></br>
+<img alt="Dog Image2" th:src="@{/images/Funny_Dog_H.png}" title="Dog Image2" style="width:200px"/>
+<th:block th:insert="~{/layouts/footer}"></th:block>
+</body>
+</html>

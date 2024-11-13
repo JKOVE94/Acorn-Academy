@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="./assets/css/chat.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.1/sockjs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+<script src="./assets/js/websocket.js"></script>
+</head>
+<body>
+
+
+<div>
+
+<h2 style="color: #004d40">🏡 채팅</h2>
+
+<ul id="messageArea">
+
+</ul>
+
+ 
+
+<!-- 입력창과 버튼을 감싸는 컨테이너 추가 -->
+
+<div id="inputContainer">
+<ul id="msgArea">	</ul>
+
+<input type="text" id="name" placeholder="이름 입력"> 
+<input type="text" id="message" size="100" placeholder="메세지 입력" xxxxonkeydown="if (event.keyCode == 13) sendMessage()">
+<button xxxxonclick="sendMessage()">전송</button>
+<button xxxxonclick="leaveChat()">퇴장</button>
+</div>
+</div>
+</body>
+<!--  
+<body>
+<div>
+	<input type="text" id="name" placeholder="이름 입력"></br>
+	<input type="text" id="message" placeholder="메세지 입력" size="60" onkeydown="if(event.keyCode == 13) sendMessage()"> </br>
+	<button type="button" onclick="sendMessage()">전송</button><br/>
+	<button type="button" onclick="leaveChat()">퇴장</button>
+</div>
+<hr/>
+<ul id="msgArea">	</ul>
+</body>
+-->
+</html>

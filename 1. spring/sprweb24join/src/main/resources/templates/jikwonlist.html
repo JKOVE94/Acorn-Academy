@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h2>직원 자료</h2>
+	<table border="1">
+		<tr>
+			<th>직원 사번</th>
+			<th>직원 명</th>
+			<th>직원 직급</th>
+			<th>직원 급여</th>
+			<th>부서명</th>
+			<th>부서 전화</th>
+		</tr>
+		<tr th:each="jikwon:${jikwons}">
+			<td>[[${jikwon.jikwonno}]]</td>
+			<td>[[${jikwon.jikwonname}]]</td>
+			<td>[[${jikwon.jikwonjik}]]</td>
+			<td>[[${jikwon.jikwonpay}]]</td>
+			<td>[[${jikwon.buserDto.busername}]]</td>
+			<td>[[${jikwon.buserDto.busertel}]]</td>
+		</tr>
+	</table>
+</body>
+</html>

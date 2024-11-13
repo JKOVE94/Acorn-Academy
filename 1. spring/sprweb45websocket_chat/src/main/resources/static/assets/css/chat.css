@@ -1,0 +1,139 @@
+/* 전체 body 스타일 */
+body {
+    background-color: #f0f4f7; /* 부드러운 파란 배경 */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* 깔끔한 폰트 */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* 채팅 컨테이너 스타일 */
+div {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 약간의 그림자 */
+    max-width: 500px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    height: 90vh; /* 화면의 80% 높이 */
+    position: relative;
+}
+
+/* 채팅 메시지 리스트 스타일 */
+ul#messageArea {
+    overflow-y: auto; /* 내용이 많을 경우 스크롤바 표시 */
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    margin-bottom: 250px; /* 입력창과의 여백 추가 */
+}
+
+/* 입력창 및 버튼 컨테이너 */
+#inputContainer {
+    display: flex;
+    gap: 10px;
+    height: 200px;
+    width: 90%;
+    position: absolute;
+    bottom: 20px; /* 화면 하단에서 20px 위에 고정 */
+    left: 20px;
+    right: 20px;
+}
+
+/* 입력 필드 스타일 */
+input[type="text"] {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #d1d1d1;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease-in-out;
+}
+
+input[type="text"]:focus {
+    border-color: #00796b; /* 포커스 시 테두리 색상 */
+    outline: none;
+}
+
+/* 버튼 스타일 */
+button {
+    background-color: #00796b;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #004d40; /* 호버 시 버튼 색상 변경 */
+}
+
+/* event-message 클래스 스타일 */
+.event-message {
+    background-color: lightgray; /* 회색 배경 */
+    text-align: center;
+    color: #333;
+    padding: 10px 20px;
+    margin: 10px 0;
+    border-radius: 20px;
+    font-style: italic;
+    font-size: 0.9rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 가벼운 그림자 */
+}
+
+/* chat-message 클래스 스타일 */
+.chat-message {
+    background-color: #e0f7fa; /* 밝은 청록색 배경 */
+    color: #00796b;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 10px;
+    font-size: 1rem;
+    text-align: left;
+    position: relative;
+    animation: fadeIn 0.3s ease;
+}
+
+/* nickname 클래스 스타일 */
+.nickname {
+    font-weight: bold;
+    color: #004d40;
+    margin-right: 10px;
+}
+
+/* 메시지가 부드럽게 나타나는 애니메이션 */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 리스트 아이템 스타일 */
+li {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* 스크롤바 커스터마이징 */
+ul#messageArea::-webkit-scrollbar {
+    width: 5px;
+}
+
+ul#messageArea::-webkit-scrollbar-thumb {
+    background-color: #00796b;
+    border-radius: 5px;
+}

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript"
+	src="http://code.jquery.com/jquery-latest.js"></script>
+<script>
+        //jquery(document).ready();
+        $(document).ready(() => {
+            $("#btnShow").click(() => {
+            	$.ajax({
+        	type:'get',
+			url:'sangpums',
+			dataType:'json',
+			success: sangpumdatas =>{
+				//alert(sangpumdatas.datas);
+				let str = "";
+				const sdatas = sangpumdatas.datas;
+				$(sdatas).each((index,arr) => {
+					str += '<tr>';
+					str += '<td>' + arr['code']+'</td>';
+					str += '<td>' + arr['sang']+'</td>';
+					str += '<td>' + arr['su']+'</td>';
+					str += '<td>' + arr.dan + '</td>';
+					str += '</tr>';
+				});
+				
+				$('tbody').html(str);
+				
+			},error: () =>{
+				jQuery('#showErr').text("에러 발생");
+			}
+		});
+	});
+})
+
+    </script>
+</head>
+
+<body>
+	<h2>상품리스트 (@MVC + Ajax + JPA)</h2>
+	<a href="#" onclick="history.back()">돌아가기</a><br/>
+	<button id="btnShow">상품 정보 보여줘 !</button>
+	<br />
+	<br />
+	<table border="1">
+		<thead>
+			<tr>
+				<th>코드</th><th>품명</th><th>수량</th><th>단가</th>
+			</tr>
+		</thead>
+		<tbody>
+		</tbody>
+	</table>
+	<hr />
+
+	<div id="showErr"></div>
+</body>
+</html>
