@@ -1,0 +1,26 @@
+.App {
+  margin: 50px;
+}
+
+.display{
+  display:none;
+}
+
+.error{
+  color:red;
+  font-size: 20px;
+}
+
+.success{
+  opacity: 100%;
+  color:green;
+  font-size: 20px;
+  transition: opacity 1s;
+}
+
+.transition{
+  color:green;
+  font-size: 20px;
+  transition: opacity 1s;
+  opacity:0%;
+}

@@ -1,0 +1,15 @@
+.App {
+  margin: 10px;
+}
+
+.redbar{
+  background-color: red;
+  color:yellow;
+  text-align: center;
+}
+
+.list{
+  background-color: lightblue;
+  color:blue;
+  padding: 10px 20px 30px 20px;
+}
