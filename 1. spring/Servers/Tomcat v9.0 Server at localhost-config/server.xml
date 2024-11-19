@@ -172,7 +172,7 @@
 
           
 
-      <Context docBase="reactmodel1" path="/reactmodel1" reloadable="true" source="org.eclipse.jst.jee.server:reactmodel1"/></Host>
+      <Context docBase="abcReact" path="/abcReact" reloadable="true" source="org.eclipse.jst.jee.server:abcReact"/></Host>
     </Engine>
   </Service>
 </Server>
