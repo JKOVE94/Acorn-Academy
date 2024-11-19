@@ -1,0 +1,25 @@
+.form{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.form input{
+    flex : 1;
+    outline: none;
+    border: none;
+    border-bottom: 1px solid chocolate;
+}
+
+.crate-button{
+    padding : 5px;
+    background-color: brown;
+    width: 50px;
+    color:white;
+    text-align: center;
+    cursor: pointer;
+}
+
+.crate-button:hover{
+    background-color: cadetblue;
+}
