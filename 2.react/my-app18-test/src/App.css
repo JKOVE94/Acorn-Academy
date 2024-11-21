@@ -1,0 +1,45 @@
+.App {
+  margin: 50px;
+  text-align: center;
+}
+
+table{
+  width: 100%;
+}
+
+tr{
+  margin:50px;
+}
+
+.table-title{
+  background-color: #4CAF50;
+  font-size: 20px;
+  color:white;
+}
+
+.space{
+  height: 100px;
+}
+
+.result{
+  background-color: #4CAF50;
+  font-size: 20px;
+  color:white;
+}
+
+.total-price{
+  font-size: 20px;
+  text-align: right;
+  padding-right:20px;
+}
+
+.btn{
+    cursor: pointer;
+}
+
+.prod-list{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; /* 컴포넌트 간의 간격 조절 */
+    justify-content: center; /* 중앙 정렬 */
+}

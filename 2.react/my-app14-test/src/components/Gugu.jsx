@@ -31,7 +31,8 @@ const Gugu = () => {
         <div>
             <h2>구구단</h2>
             <label htmlFor='num'>단입력: </label>
-            <input type='text' id="num" placeholder='숫자를 입력하세요' onKeyDown={makeGugu}/>&nbsp; <button onClick={handleClick}>확인</button>
+            <input type='text' id="num" placeholder='숫자를 입력하세요' onKeyDown={makeGugu}/>&nbsp;
+            <button onClick={handleClick}>확인</button>
             <GuguResult gugu={gugu}/>
         </div>
     )

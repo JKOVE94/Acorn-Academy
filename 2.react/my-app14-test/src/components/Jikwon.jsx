@@ -52,7 +52,8 @@ const Jikwon = () => {
         <div>
             <h2>부서명으로 직원 찾기</h2>
             <label htmlFor="inputbox">부서명: </label>
-            <input type="text" id="inputbox" onKeyDown={setBusername} placeholder="부서명을 입력하세요"/>&nbsp;&nbsp;<button onClick={handleClick}>확인</button><br /><br />
+            <input type="text" id="inputbox" onKeyDown={setBusername} placeholder="부서명을 입력하세요"/>&nbsp;&nbsp;
+            <button onClick={handleClick}>확인</button><br /><br />
             <JikwonResult jikwonList={jikwonList} avgSal={avgSal} />
         </div>
     );

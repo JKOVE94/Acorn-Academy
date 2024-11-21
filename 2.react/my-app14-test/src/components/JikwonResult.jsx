@@ -4,7 +4,7 @@ const JikwonResult = ({jikwonList,avgSal}) => {
 
     if(jikwonList.length === 0) return <div>직원이 없습니다.</div>;
     else return(
- <table border="1">
+            <table border="1">
                 <thead>
                     <tr>
                         <th>사번</th>

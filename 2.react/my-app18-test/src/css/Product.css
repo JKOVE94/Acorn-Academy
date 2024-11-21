@@ -1,0 +1,29 @@
+.product{
+    flex: 1 1 200px; /* 각 컴포넌트의 크기 조절 */
+    max-width: 200px; /* 최대 너비 설정 */
+    height: 300px;
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+    box-sizing: border-box; /* 패딩과 보더를 포함한 크기 계산 */
+    position: relative; /* 자식 요소의 절대 위치를 기준으로 설정 */
+    display: flex; /* 플렉스 컨테이너로 설정 */
+    flex-direction: column; /* 플렉스 아이템을 세로로 정렬 */
+    justify-content: space-around; /* 수직 중앙 정렬 */
+    align-items: center; /* 수평 중앙 정렬 */
+}
+
+.product img{
+    width: 100%;
+    height: auto;
+    object-fit: contain; /* 이미지가 컨테이너에 맞게 조정되도록 설정 */
+    margin-bottom:100px;
+}
+
+.info{
+    position: absolute; /* 부모 요소를 기준으로 절대 위치 설정 */
+    bottom: 0; /* 하단에 위치 */
+    left: 0;
+    right: 0;
+    padding: 10px;
+}
