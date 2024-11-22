@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<a th:href="@{/insertform}">회원추가</a>
+<h3>회원 목록</h3>
+<table>
+<tr>
+<th>번호</th><th>이름</th><th>주소</th>
+</tr>
+<tr th:each="m : ${list}">
+	<td>[[${m.num}]]</td><td>[[${m.name}]]</td><td>[[${m.addr}]]</td>
+</tr>
+</table>
+</body>
+</html>

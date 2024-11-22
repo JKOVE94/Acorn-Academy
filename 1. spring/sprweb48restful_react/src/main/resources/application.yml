@@ -1,0 +1,24 @@
+# yml 파일은 데이터 직렬화 언어로 환경 구성 작성에 효과적
+# key:value로 구성
+# 확장자는 .yml 혹은 .yaml 을 사용한다.
+# myl의 문법은 key: 콜론 이후에 공백 1개를 줘야한다.
+
+server:
+  port: 80
+
+spring:
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://127.0.0.1:3306/memberdb
+    username: root
+    password: jkove1994
+  thymeleaf:
+    cache: false
+  application:
+    name: sprweb48restful_react
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: pack.dto.**
+
+# 디렉토리에서 *은 꼭 2개를 작성하자!
