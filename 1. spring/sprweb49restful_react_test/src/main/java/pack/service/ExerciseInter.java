@@ -1,13 +1,16 @@
 package pack.service;
 
 import java.util.List;
-import pack.controller.ExerciseForm;
-import pack.dto.ExerciseDto;
+
+import pack.dto.ExercisesDto;
+import pack.form.ExercisesForm;
 
 public interface ExerciseInter {
 
-	List<ExerciseDto> getAllList();
-	ExerciseDto getOne(long num);
-	void insertAndUpdate(ExerciseForm form);
+	List<ExercisesDto> getAllList();
+	ExercisesDto getOne(long num);
+	void insert(ExercisesForm form);
+	void update(long id, ExercisesForm form);
 	void delete(long num);
+	long getMaxno();
 }

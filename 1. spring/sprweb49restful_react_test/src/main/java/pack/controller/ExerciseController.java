@@ -8,7 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import pack.dto.ExerciseDto;
+import pack.dto.ExercisesDto;
+import pack.form.ExercisesForm;
 import pack.service.ExerciseInter;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -22,25 +23,24 @@ public class ExerciseController {
 	private ExerciseInter inter;
 	
 	@GetMapping("/exercises")
-	public List<ExerciseDto> getAllinfo(){
+	public List<ExercisesDto> getAllinfo(){
 		return inter.getAllList();
 	}
 	
 	@GetMapping("/exercises/{id}")
-	public ExerciseDto getAllinfo(@PathVariable("id")long id){
+	public ExercisesDto getAllinfo(@PathVariable("id")long id){
 		return inter.getOne(id);
 	}
 	
 	@PostMapping("/exercises")
-	public String insert(@RequestBody ExerciseForm form) {
-		inter.insertAndUpdate(form);
+	public String insert(@RequestBody ExercisesForm form) {
+		inter.insert(form);
 		return "잘 등록되었음";
 	}
 	
 	@PutMapping("/exercises/{id}")
-	public String update(@PathVariable("id")long id,@RequestBody ExerciseForm form) {
-		form.setId(id);
-		inter.insertAndUpdate(form);
+	public String update(@PathVariable("id")long id,@RequestBody ExercisesForm form) {
+		inter.update(id,form);
 		return "잘 수정되었음";
 	}
 	

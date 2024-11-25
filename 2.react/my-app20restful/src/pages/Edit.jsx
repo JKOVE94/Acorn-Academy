@@ -4,55 +4,43 @@ import axios from 'axios';
 
 const Edit = () => {
     const navigate = useNavigate();
-    const prams = useParams();
-    const inputNum = prams.num;
-    const [num, setNum] = useState('');
-    const [name, setName] = useState('');
-    const [addr, setAddr] = useState('');
-
+    const {num} = useParams();
+    /*const prams = useParams();
+    const inputNum = prams.num;*/
+    const [data, setData] = useState({});
+    
     const handleChange = (e) => {
-        switch(e.target.name){
-            case 'num':
-                setNum(e.target.value);
-                break;
-            case 'name':
-                setName(e.target.value);
-                break;
-            case 'addr':
-                setAddr(e.target.value);
-                break;
-        }    
+        setData({...data, [e.target.name]:e.target.value});
     }
 
-    const handleInsert = (e) => {
-        e.preventDefault();
-        axios.put(`/members/${inputNum}`, {num:num, name:name, addr:addr})
-        .then(navigate('/members'))
-    }
-
-    useEffect(()=>{
-        axios.get(`/members/${inputNum}`)
+    const handleUpdate = () => {
+        axios.put(`/members/${num}`, data)
         .then(res => {
-            setNum(res.data.num);
-            setAddr(res.data.addr);
-            setName(res.data.name);
+            if(res.data.isSuccess) navigate('/members')
+            else throw new Error();
         })
-    },[])
+        .catch(err => console.log(err));
+    }
+
+    useEffect(() => {
+        axios.get(`/members/${num}`)
+        .then(res => {
+            setData(res.data);
+        })
+    },[num])
 
 
     return (
         <div>
             <h1>회원 수정</h1>
-           <Link to="/">메인으로</Link>
-            <form onSubmit={handleInsert}>
-                <label htmlFor="num">번호: </label>
-                <input type="text" id="num" name="num" value={num} onChange={handleChange}/><br/>
-                <label htmlFor="name">이름: </label>
-                <input type="text" name="name" id="name" value={name} onChange={handleChange}/><br/>
-                <label htmlFor="addr">주소: </label>
-                <input type="text" name="addr" id="addr" value={addr} onChange={handleChange}/><br/><br/>
-                <button>수정</button>
-            </form>
+           <Link to="/">메인으로</Link><br/><br/>
+            <label htmlFor="num">번호: </label>
+            <input type="text" id="num" name="num" value={data.num} onChange={handleChange} readOnly/><br/>
+            <label htmlFor="name">이름: </label>
+            <input type="text" name="name" id="name" value={data.name} onChange={handleChange}/><br/>
+            <label htmlFor="addr">주소: </label>
+            <input type="text" name="addr" id="addr" value={data.addr} onChange={handleChange}/><br/><br/>
+            <button onClick={handleUpdate}>수정</button>
         </div>
     )
 }

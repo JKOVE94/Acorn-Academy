@@ -8,7 +8,6 @@ import Edit from './pages/Edit';
 
 const App = () => {
   return (
-    
     <div className="App">
       <Routes>
         <Route path="/" element={<Home />} />
