@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@3"></script>
+    <script src="./ex3directive.js" defer></script>
+</head>
+
+<body>
+    directive : DOM엘리먼트가 뭔가를 수행하도록 지시하는 특수한 명령어(token) 접두어가 'v-' 이다.
+    <br />
+    <h1>directive 속성 연습</h1>
+    <div id="app">
+        <a href={{link}}>가자 구글로(HTML 속성에는 Mustache를 사용 불가)</a><br />
+        <a v-bind:href="link">가자 구글로(v-bind:href 단방향으로 data 접근)</a><br /> <!-- bind는 단방향으로 데이터에 접근-->
+        <a :href="link">가자 구글로(v-bind 생략 가능 &rAarr; :href)</a><br /> <!-- bind는 단방향으로 데이터에 접근-->
+        <img :src="imgSrc" alt="댕댕이"><br />
+        <h2 v-text="say"></h2>
+        <h2>{{say}}</h2>
+        <h2 v-once>data 속성 값 : {{say}}</h2> <!-- 처음 1회만 바인딩 된 이후에는 값이 변하지 않는다. -->
+        <button @click="sayFunc">메세지 변경</button><br />
+
+        <!--텍스트 형태로 출력, 또는 파싱-->
+        <span v-text="aLinkToNaver"></span> <br /> <!-- v-text는 innerText와 같다. -->
+        <span v-html="aLinkToNaver"></span> <br /> <!-- v-html 은 innerHTML과 같다.-->
+
+        <hr />
+        <!-- 양방향 데이터 바인딩 -->
+        <!-- v-bind:value="name" @input="changeName" 과 v-model="name" 은 같은 기능을 한다. -->
+        원본 : {{name}}<br />
+        이름은 <input type="text" v-model="name" placeholder="v-model은 값이 변하면 data() 객체도 변해요">
+        <!-- v-model을 사용하면 양방향에서 데이터 접근이 가능-->
+        <br />
+        이름은 <input type="text" v-bind:value="name" @input="changeName" placeholder="v-bind는 값이 변해도 data() 객체도 변하지 않아요">
+        <hr />
+
+        <h1>계산 관련 computed</h1>
+        a = {{a}}, b = {{b}}<br />
+        a 값 입력 : <input type="text" v-model="a"><br /> <!-- v-model의 기본 타입은 String-->
+        입력된 a : {{a}} (타입은 {{typeof a}})<br />
+        a 값 입력 : <input type="text" v-model.number="a"><br /> <!-- v-model.number는 숫자로 변환-->
+        <hr />
+
+        <h1>조건문 연습</h1>
+        <h2 v-if="nai >= 20">성인</h2>
+        <h2 v-else-if="nai === 15">나이가 15살 이네요</h2>
+        <h2 v-else>나이가 어리네</h2>
+        나이 : <input type="text" v-model.number="nai">
+        <hr />
+
+        <h1>반복문 연습</h1>
+        <h2>오늘 할일</h2>
+        <ul>
+            <li v-for="(todo, index) in todos" :key='index'>{{index + 1}}) {{todo.msg}}</li>
+        </ul>
+
+    </div>
+</body>
+
+</html>

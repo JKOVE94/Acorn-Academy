@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!--jQuery cdn 사용-->
+    <script src="https://code.jquery.com/jquery-latest.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#msg").text("Vue도 jQuery처럼 cdn으로 작업이 가능하다");
+        })
+    </script>
+
+    <!--vue cdn 사용-->
+    <script src="https://unpkg.com/vue@3"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const hi = { msg: "뷰 세계에 오신것을 환영합니다" }; //MVVM 중 Model 영역 => 데이터만 관리하는 객체
+
+            Vue.createApp({ //MVVM 중 ViewModel 영역 => 상태와 연산을 관리하는 객체
+
+                //옵션 객체 (Option Object) => Proxy객체
+                // 그래서 객체를 반환하는 함수를 작성.
+                data() { //proxy 객체로서 반응성을 제공하는 기본 요소! model 객체값을 변경하면 즉시 view(화면)를 rerendering => 그 역할을 하는 함수가 data()
+                    return hi;
+                }
+            }).mount("#app1"); //VM과 View를 연결하는 mount() 함수 => 현재 앱을 DOM에 마운트한다. 
+        });
+    </script>
+
+    <!-- defer 속성은 외부 javascript를 import할 때 사용하는 속성으로, html 문서가 파싱되는 동안에 외부 스크립트를 다운로드하고, 파싱이 끝나면 스크립트를 실행한다. 
+        defer를 사용하면 document.addEventListener("DOMContentLoaded", () => {})를 사용하지 않아도 된다.-->
+    <script src="./ex1.js" defer></script>
+
+</head>
+
+<body>
+    jQuery 출력 결과 : <span id="msg"></span>
+    <hr />
+    vue.js는 M(Model)V(View)VM(ViewModel) 로 이어지는 sw architecture 패턴을 따르는 프레임워크이다.<br />
+    vue 출력 결과 (View) : <span id="app1">{{msg}}</span> <!-- vue.js 에서는 mustach 텍스트 보관법을 사용한다. -->
+
+    <hr />
+    vue 출력결과 2 :
+    <div id="app2">
+        <span>
+            {{message1}} &nbsp;&nbsp;
+            {{message2}} &nbsp;&nbsp;
+            {{message3}} &nbsp;&nbsp;
+        </span>
+        <br />
+        <button @click="updateMessage">메세지 변경</button>
+    </div>
+
+</body>
+
+</html>
