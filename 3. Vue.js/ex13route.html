@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="http://www.unpkg.com/vue@3"></script>
+    <script src="http://www.unpkg.com/vue-router@4"></script>
+    <script src="./ex13route.js" defer type="module"></script>
+</head>
+
+<body>
+    <div id="app">
+        <router-link to="/">메인</router-link> |
+        <router-link to="/mem">메뉴1</router-link> |
+        <router-link to="/product">메뉴2</router-link> |
+        <router-link to="/gugudan">구구단</router-link> |
+
+        <!-- 현제 라우팅에 대한 렌더링 영역 -->
+        <router-view style="color:red;"></router-view>
+    </div>
+</body>
+
+</html>

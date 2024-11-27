@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>반복 렌더링</title>
+    <script src="http://www.unpkg.com/vue@3"></script>
+    <script src="./ex8for.js" defer></script>
+</head>
+
+<body>
+    <div id="app">
+        <h3>갈증날 때 음료</h3>
+        <ul>
+            <li v-for="(drink,index) in list" :key=`${drink}-${index}`>{{drink}} ({{index}})</li>
+        </ul>
+
+        <h3>가고 싶은 여행지</h3>
+        <ol>
+            <li v-for="(city, index) in objArray">{{city.name}} | 소요시간 : {{city.taketime}}</li>
+        </ol>
+
+        <h3>구구단 3단</h3>
+        <ul>
+            <li v-for="num in 9" :key="num">3 X {{num}} = {{3*num}}</li>
+        </ul>
+
+        <h3>배열 자료 추가 삭제</h3>
+        <ul>
+            <li v-for="i in myArr" :key="i">{{i}}</li>
+        </ul>
+        <button @click="addList">자료 추가 (맨 뒤)</button> &nbsp;
+        <button @click="addListIndex(3)">자료 삽입 (특정 위치)</button> &nbsp;
+        <button @click="changeList(2)">자료 변경</button> &nbsp;
+        <button @click="removeList(1)">자료 삭제</button> &nbsp;
+
+        <h3>for문과 if문의 혼용</h3>
+        홀수만 출력 : <span v-for="i in oddNumArr" :key="i">{{i}}&nbsp;</span><br />
+        짝수만 출력 : <span v-for="o in evenNumArr" :key="o">{{o}}&nbsp;</span><br />
+        홀수만 출력 (다른 방법) :
+        <template v-for="i in numArr" :key="i">
+            <span v-if="i % 2 === 1">{{i}}&nbsp;</span>
+        </template>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@3"></script>
+    <script src="./ex5event.js" defer></script>
+</head>
+
+<body>
+    <h1>이벤트 연습</h1>
+    <div id="app">
+        육각형 주사위의 수 : {{number}} &nbsp;&nbsp;
+        {{angle}}각형 주사위의 수 : {{number2}}<br />
+        두 눈의 합계 : {{number + number2}}<br />
+        주사위 굴린 횟수 : {{count}}<br />
+        <input type="text" v-model="angle" :style="{width:'15px'}">
+        <button @click="rollDiceEvent2()">원하는 각형의 주사위 굴리기</button> &nbsp;
+        <button v-on:click="rollDiceEvent">육각형 주사위굴리기</button><br />
+        <hr />
+        숫자 js 조건문 : {{count % 2 ===0 ? '짝수' : '홀수'}}<br />
+        <button @click="count++">클릭으로 카운트 증가</button>
+    </div>
+
+    <hr />
+    <div id="app2">
+        message : <child-component :propsdata="message"></child-component>
+        <!-- propsdata 표기법 O, propsData 표기법 X, props_data 표기법 O, props-data 표기법 O -->
+    </div>
+    <div id="app3">
+        <!-- 자식 컴포넌트에서 이벤트를 발생시키고 부모 컴포넌트에서 감지하여 메소드 호출 -->
+        message : <child-component @show-log="printText"></child-component>
+        <h2>{{msg}}</h2>
+    </div>
+</body>
+
+</html>

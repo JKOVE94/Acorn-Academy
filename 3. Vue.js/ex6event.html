@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https:/www.unpkg.com/vue@3"></script>
+    <script src="./ex6event.js" defer></script>
+</head>
+
+<body>
+    <div id="app">
+        <h2>이벤트 연습 (사칙연산)</h2>
+        <div>
+            <label for="value1">값1 :</label>
+            <input type="number" id="value1" v-model.number="value1">
+        </div>
+        <div>
+            <label for="value2">값2 :</label>
+            <input type="number" id="value2" v-model.number="value2">
+        </div><br />
+        <div>
+            <button @click="calculate('+')">+</button> &nbsp;
+            <button @click="calculate('-')">-</button> &nbsp;
+            <button @click="calculate('*')">*</button> &nbsp;
+            <button @click="calculate('/')">/</button>
+        </div>
+        <div>
+            <h3>결과 값 : {{result}}</h3>
+        </div>
+    </div>
+</body>
+
+</html>

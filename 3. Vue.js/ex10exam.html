@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="http://www.unpkg.com/vue@3"></script>
+    <script src="./ex10exam.js" defer></script>
+</head>
+
+<body>
+    <div id="app">
+        <h2>1강의실 성적관리</h2>
+        <form @submit.prevent="addScore">
+            <div>
+                <label for="name">이름 : </label>
+                <input type="text" v-model="inputData.name" id="name" required><br />
+            </div>
+            시험과목
+            <div>
+                <label for="subject1">JAVA : </label>
+                <input type="number" min="0" max="100" v-model.number="inputData.subject1" id="subject1" required><br />
+            </div>
+            <div>
+                <label for="subject2">Python : </label>
+                <input type="number" min="0" max="100" v-model.number="inputData.subject2" id="subject2" required><br />
+            </div>
+            <div>
+                <label for="subject3">Vue.js : </label>
+                <input type="number" min="0" max="100" v-model.number="inputData.subject3" id="subject3" required><br />
+            </div>
+            <br />
+            <button type="submit"> 확인 </button>
+        </form>
+        <h2>입력 결과</h2>
+        <ul>
+            <li v-for="entry in entries" :key="entry.name">
+                {{entry.name}}의 점수 : {{entry.subject1}}, {{entry.subject2}}, {{entry.subject3}}<br />
+                총점 : {{entry.total}}
+        </ul>
+        <h2>전체 계산 결과</h2>
+        <p>인원수 : {{entries.length}}, 전체 총점 : {{totalSum}}</p>
+        <p>평균점수 : {{Math.round(totalSum/entries.length)}}</p>
+    </div>
+</body>
+
+</html>

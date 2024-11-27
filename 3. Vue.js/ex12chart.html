@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./ex12chart-chart.js" defer></script>
+    <script src="./ex12chart-vue.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@3.2.31/dist/vue.global.prod.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+</head>
+
+<body>
+    <h2>구글차트 그리기</h2>
+    먹고싶은 군것질 종류 <br />
+    <div id="chart_div" style="height: 500px;">
+
+    </div>
+    <div id="app">
+        <ul>
+            <li v-for="(food, index) in dataArray" :key="index">{{food[0]}} : {{food[1]}}개
+                <button @click="addFunc(index)">수량 증가</button> &nbsp;
+                <button @click="subFunc(index)">수량 감소</button>
+            </li>
+        </ul>
+    </div>
+</body>
+
+</html>

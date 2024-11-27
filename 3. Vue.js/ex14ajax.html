@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="http://www.unpkg.com/vue@3"></script>
+    <script src="http://www.unpkg.com/vue-router@4"></script>
+    <script src="./ex14ajax.js" defer type="module"></script>
+</head>
+
+<body>
+    <div id="app">
+        <button @click="fetchData">Ajax 실행</button>
+        <button @click="clearData">결과 삭제</button>
+
+        <div v-for="(data,idx) in posts" :key="idx">
+            <h3>{{data.title}}</h3>
+            <p>userId : {{data.userId}}</p>
+            <p>{{data.body}}</p>
+            <br />
+        </div>
+    </div>
+</body>
+
+</html>

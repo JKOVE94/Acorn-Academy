@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="http://www.unpkg.com/vue@3"></script>
+    <script src="./ex9-1.js" defer></script>
+    <script src="./ex9-2.js" defer></script>
+    <script src="./ex9-3.js" defer></script>
+</head>
+
+<body>
+    <div id="app1">
+        {{key1}}, {{key2}} <br />
+        <b>{{message}}</b> <br />
+        <!-- 양방향 바인딩 -->
+        <input type="text" v-model="message">
+        <!-- v-html을 통해 innerHTML 구현 raw HTML로 렌더링 -->
+        <div v-html="htmlString"></div>
+        <div>{{htmlString}}</div> <br />
+        <button @click="myFunc">메세지 출력</button>
+        <button @click="myChange1">인사말 변경1</button>
+        <button @click="myChange2">인사말 변경2</button>
+        <hr />
+        <input type="text" size="5" v-model.number="su1"> + <input type="text" size="5" v-model.number="su2"> = {{su1 +
+        su2}}
+
+        <br /><br />
+        <!-- 조건부 렌더링 -->
+        <input type="search" v-model="txtMsg" placeholder="문자 입력" />&nbsp;
+        <button v-bind:disabled="txtMsg === ''">활성화 대기버튼</button><br />
+        <img :src="daumLogo" style="width:150px; height:auto">
+    </div>
+
+    <div id="app2">
+        배열자료 출력 :
+        <select>
+            <option v-for="buser in busers" :value="buser.bunho" :key="buser.bunho">{{buser.irum}} {{buser.junhwa}}
+            </option>
+        </select><br /><br />
+
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>부서번호</th>
+                    <th>부서이름</th>
+                    <th>전화번호</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="buser in busers" :key="buser.bunho">
+                    <td>{{buser.bunho}}</td>
+                    <td>{{buser.irum}}</td>
+                    <td>{{buser.junhwa}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <br /><br />
+        <div>
+            연봉이 얼마니? <input type="text" v-model="ypay">
+        </div>
+        <div>
+            <span v-if="ypay < 5000">힘내자</span>
+            <span v-else-if="ypay < 8000">조금 더 힘내자</span>
+            <span v-else>좋겠다</span>
+        </div>
+        <span :style="cssStyleTest">컨텐츠 스타일을 바인딩</span>&nbsp;
+        <button @click="cssStyleTest.fontSize='24px'">글자 크기 확대</button>
+    </div>
+</body>
+
+</html>

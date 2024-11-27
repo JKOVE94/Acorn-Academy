@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>조건부 렌더링</title>
+    <script src="http://www.unpkg.com/vue@3"></script>
+    <script src="./ex7if.js" defer> </script>
+</head>
+
+<body>
+    <div id="app">
+        <p v-if="season">겨울이 좋아</p>
+        <p v-else>여름이 기다려져</p>
+        <button @click="season = !season">결과 뒤집기</button>
+
+        <!-- template를 활용한 조건부 그룹 -->
+        <!-- template태그를 활용하면 조건부 렌더링을 설정할 수 있다. -->
+        <template v-if="season">
+            <p>해충이 없어 좋아</p>
+            <p>눈 구경하기 좋아</p>
+        </template>
+        <template v-else>
+            <p>가볍게 패션을 표현</p>
+            <p>장마철 개고생하기</p>
+        </template>
+
+        <!-- v-show를 활용한 조건부 렌더링 -->
+        <!-- v-show는 template 태그와 함께 사용할 수 없다. -->
+        <div v-show="season">
+            <strong>롱코트로 멋부리기</strong>
+        </div>
+        <h2>*v-if와 v-show의 차이*</h2>
+        <ul>
+            <li v-if="season">v-if로 표현 - false의 경우에는 코드 제거 (DOM에서 제거)</li>
+            <li v-show="season">v-show로 표현 - false의 경우에는 display:none으로 처리</li>
+        </ul>
+        <hr />
+        <!-- checkbox의 상태에 따라 조건부 렌더링 -->
+        <label><input type="checkbox" v-model="myVisible">체크박스 표시 확인</label>
+        <p v-if="myVisible">Check ON</p>
+        <p v-else>Check Off</p>
+        <hr />
+
+        <!-- count값에 따라 조건부 렌더랑 -->
+        <p v-if="count === 5">{{count}}번 클릭!!! 버튼을 비 활성화</p>
+        <p v-else-if="count >=1">현재 클릭 횟수 : {{count}}</p>
+        <p v-else>버튼을 클릭하시오</p>
+        <button @click="addFunc" v-bind:disabled="count === 5">증가</button>
+        <button @click="descFunc" :disabled="count === 5">감소</button>
+        <button @click="resetFunc" :disabled="count !== 5">리셋</button>
+    </div>
+</body>
+
+</html>
