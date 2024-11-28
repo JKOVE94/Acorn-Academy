@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="http://www.unpkg.com/vue@3"></script>
+    <script src="http://www.unpkg.com/vue-router@4"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="./ex17ajax_jikwon.js" defer></script>
+</head>
+
+<body>
+    <div id="app">
+        <button v-on:click="showFunc">직원자료 보기</button>
+        <table v-if="datas && datas.length > 0">
+            <thead>
+                <tr>
+                    <th>사번</th>
+                    <th>이름</th>
+                    <th>직급</th>
+                    <th>연봉</th>
+                </tr>
+            </thead>
+            <tbody>
+                <template v-for="jikwon in datas" :key="jikwon.jikwonno">
+                    <tr>
+                        <td>{{jikwon.jikwonno}}</td>
+                        <td>{{jikwon.jikwonname}}</td>
+                        <td>{{jikwon.jikwonjik}}</td>
+                        <td>{{jikwon.jikwonpay}}</td>
+                    </tr>
+                </template>
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="http://www.unpkg.com/vue@3"></script>
+    <script src="http://www.unpkg.com/vue-router@4"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=APIKEY&libraries=LIBRARY"></script>
+    <script type="text/javascript"
+        src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4b4f511ee4f04633e80db3562c056723"></script>
+    <script src="./ex16ajax_weather.js" defer></script>
+</head>
+
+<body>
+    <div id="app">
+        <button @click="fetchData">역삼동 날씨 정보 읽기</button>
+        <div v-if="weather">
+            <h3>날씨 정보</h3>
+            <p>예보시간 : {{weather.time}}</p>
+            <p>기온 : {{weather.temperature}}</p>
+            <p>풍속 : {{weather.windspeed}}</p>
+            <p>풍향 : {{weather.winddirection}}</p>
+            <br />
+        </div>
+    </div>
+</body>
+
+</html>

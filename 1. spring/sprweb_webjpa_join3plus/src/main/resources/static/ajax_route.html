@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="http://www.unpkg.com/vue@3"></script>
+    <script src="http://www.unpkg.com/vue-router@4"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="./ex18ajax_route.js" defer></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <h1>자료보기</h1>
+        <nav>
+            <router-link to="/">전체자료</router-link>&nbsp;|&nbsp;
+            <router-link to="/busers">부서자료</router-link>&nbsp;|&nbsp;
+            <router-link to="/jikwons">직원자료</router-link>&nbsp;|&nbsp;
+            <router-link to="/gogeks">고객자료</router-link>
+        </nav>
+        <router-view></router-view>
+    </div>
+</body>
+
+</html>

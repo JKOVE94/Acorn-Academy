@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join Data Viewer</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+    </style>
+</head>
+<body>
+    <h1>세개의 테이블 조인 결과 보기</h1>
+    <button onclick="fetchJoinData()">자료 읽기(Ajax)</button>
+    <br/><br/>
+    <table id="data-table">
+        <thead>
+            <tr>
+                <th>부서번호</th>
+                <th>부서명</th>
+                <th>부서위치</th>
+                <th>직원번호</th>
+                <th>직원명</th>
+                <th>직급</th>
+                <th>급여</th>
+                <th>고객번호</th>
+                <th>고객명</th>
+                <th>고객전화번호</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- 데이터는 여기에 추가 -->
+        </tbody>
+    </table>
+
+    <script>
+        async function fetchJoinData() {
+            try {
+                const response = await fetch('/joindata');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = await response.json();
+
+                const tableBody = document.querySelector('#data-table tbody');
+                tableBody.innerHTML = ''; // 기존 데이터 초기화
+
+                data.forEach(item => {
+                    const row = document.createElement('tr');
+
+                    row.innerHTML = `
+                        <td>${item.buserno}</td>
+                        <td>${item.busername}</td>
+                        <td>${item.buserloc}</td>
+                        <td>${item.jikwonno}</td>
+                        <td>${item.jikwonname}</td>
+                        <td>${item.jikwonjik}</td>
+                        <td>${item.jikwonpay}</td>
+                        <td>${item.gogekno}</td>
+                        <td>${item.gogekname}</td>
+                        <td>${item.gogektel}</td>
+                    `;
+
+                    tableBody.appendChild(row);
+                });
+            } catch (error) {
+                console.error('Error :', error);
+                alert('데이터를 가져오는 중 오류 발생!');
+            }
+        }
+    </script>
+</body>
+</html>
