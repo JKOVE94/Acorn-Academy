@@ -1,16 +1,14 @@
-import AllData from './AllData.js'
-import BuserData from './BuserData.js'
-import GogekData from './GogekData.js'
-import JikwonData from './JikwonData.js'
+import ViewProduct from "./viewproduct.js"
+//import AddProduct from "./addproduct.js"
+//import EditProduct from "./editproduct.js"
 
 const { createApp } = Vue;
 const { createRouter, createWebHashHistory } = VueRouter;
 
 const routes = [
-  { path: "/", component: AllData },
-  { path: "/busers", component: BuserData },
-  { path: "/jikwons", component: JikwonData },
-  { path: "/gogeks", component: GogekData },
+  { path: "/", component: ViewProduct },
+  //{ path: "/add", component: AddProduct },
+  //{ path: "/edit/:code", component: EditProduct },
 ];
 
 //라우터 생성

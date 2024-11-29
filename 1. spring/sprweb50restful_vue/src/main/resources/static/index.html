@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="http://www.unpkg.com/vue@3"></script>
+<script src="http://www.unpkg.com/vue-router@4"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script type="module" src="./components/myRouter.js" defer></script>
+<style>
+
+</style>
+</head>
+<body>
+<div id="app">
+		<nav>
+			<router-link to="/">자료보기</router-link>&nbsp;|&nbsp;
+	        <router-link to="/add">자료추가</router-link>&nbsp;|&nbsp;
+        </nav>
+        <router-view></router-view>
+</div>
+<a href="/products">제품</a>
+</body>
+</html>
