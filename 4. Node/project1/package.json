@@ -10,6 +10,9 @@
   "keywords": [],
   "description": "",
   "dependencies": {
+    "events": "^3.3.0",
+    "mariadb": "^3.4.0",
+    "mysql2": "^3.11.5",
     "readline-sync": "^1.4.10"
   }
 }
