@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h2>상품 자료 보기</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>code</th>
+                <th>sang</th>
+                <th>su</th>
+                <th>dan</th>
+            </tr>
+        </thead>
+        <tbody id="data-body">
+
+        </tbody>
+    </table>
+    <script>
+        // document.addEventListener('DOMContentLoaded', () => {
+        //     fetchSangdata();
+        // })
+        const dataBody = document.querySelector('#data-body')
+        dataBody.innerHTML = ''
+        async function fetchSangdata() {
+            try {
+                const response = await fetch('/sangdata')
+                const data = await response.json();
+                data.forEach(sangpum => {
+                    dataBody.innerHTML += `
+                    <tr>
+                        <td>${sangpum.code}</td>
+                        <td>${sangpum.sang}</td>
+                        <td>${sangpum.su}</td>
+                        <td>${sangpum.dan}</td>
+                    </tr>
+                    `
+                });
+            } catch (error) {
+                console.error("읽기 오류 : " + error)
+            }
+        }
+        window.onload = fetchSangdata();
+    </script>
+</body>
+
+</html>

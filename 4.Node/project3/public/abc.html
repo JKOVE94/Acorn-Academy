@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h2>직원 정보</h2>
+    <ul id="emp-list"></ul>
+    <div>
+        get : <button id="getemp">직원자료 읽기</button>
+    </div>
+    <div>
+        post :
+        <input type="text" id="empname" placeholder="직원이름을 입력하세요." required>
+        <button id="addemp">직원자료 추가 </button>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const empList = document.getElementById('emp-list');
+            const empName = document.getElementById('empname');
+            const getEmp = document.getElementById('getemp');
+            const addEmp = document.getElementById('addemp');
+
+            getEmp.addEventListener('click', () => {
+                fetch('/jikwon/employees')
+                    .then(res => {
+                        if (!res.ok) throw new Error('서버 오류 발생');
+                        else return res.json();
+                    })
+                    .then(data => {
+                        empList.innerHTML = '';
+                        data.forEach(emp => {
+                            let li = document.createElement('li');
+                            li.textContent = emp.name;
+                            empList.appendChild(li);
+                        })
+                    })
+                    .catch(err => {
+                        console.error('Fetch error: ', err);
+                    });
+            })
+            addEmp.addEventListener('click', () => {
+                const newEmp = { id: Date.now(), name: empName.value };
+                fetch('/jikwon/employees', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(newEmp)
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        const li = document.createElement('li');
+
+                        data.forEach(emp => {
+                            li.textContent = emp.name;
+                            empList.appendChild(li);
+                            empName.value = '';
+                        })
+                    })
+                    .catch(err => {
+                        console.error('직원자료 추가 오류: ', err);
+                    })
+            })
+
+            //GET요청으로 직원 정보 읽기
+        })
+    </script>
+</body>
+
+</html>

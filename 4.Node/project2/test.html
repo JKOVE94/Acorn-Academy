@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    이름 : <input type="text" id="name">
+    <button onclick="getSeason()">확인</button>
+    <script>
+        const getSeason = () => {
+            const name = document.getElementById('name').value;
+            fetch(`http://localhost:3000/user/${name}`)
+                .then(res => {
+                    return res.json()
+                })
+                .then(data => {
+                    console.log(data.season);
+                })
+        }
+    </script>
+</body>
+
+</html>
