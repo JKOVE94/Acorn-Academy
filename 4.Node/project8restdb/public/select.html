@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h2>상품 정보</h2>
+    <div>
+        <button onclick="location.href='/insert.html'">상품 추가</button>
+    </div>
+    <table id="data-table">
+        <thead>
+            <tr>
+                <th>코드</th>
+                <th>상품명</th>
+                <th>수량</th>
+                <th>단가</th>
+                <th>처리</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- 자료는 여기에 -->
+        </tbody>
+    </table>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            getAllData();
+        });
+
+        //READ
+        async function getAllData() {
+            try {
+                const response = await fetch('/sangdata')
+                const datas = await response.json()
+                const tableBody = document.querySelector('#data-table tbody')
+                tableBody.innerHTML = '';
+                datas.forEach(row => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td>${row.code}</td>
+                        <td>${row.sang}</td>
+                        <td>${row.su}</td>
+                        <td>${row.dan}</td>
+                        <td>
+                            <button onclick="editData(${row.code})">수정</button>    
+                            <button onclick="deleteData(${row.code})">삭제</button>    
+                        </td>
+                    `;
+                    tableBody.appendChild(tr);
+                });
+            } catch (error) {
+                console.log('읽기 오류 :', error);
+                alert('읽기 오류 :', error);
+            }
+        }
+
+        //UPDATE
+        async function editData(code) {
+            try {
+                const response = await fetch(`/sangdata/${code}`);
+                const data = await response.json();
+
+                if (data.error) {
+                    alert('수정 자료 읽기 오류 :', data.error);
+                    return;
+                }
+                location.href = `/update.html?code=${data.code}&sang=${data.sang}&su=${data.su}&dan=${data.dan}`;
+
+            } catch (error) {
+                console.log('수정 자료 읽기 오류 :', error);
+                alert('수정 자료 읽기 오류 :', error);
+            }
+        }
+
+        //DELETE
+        async function deleteData(code) {
+            try {
+                let answer = confirm('삭제하시겠습니까?');
+                if (answer) {
+                    const response = await fetch(`/sangdata/${code}`, { method: 'DELETE' });
+                    const result = await response.json();
+                    if (result.message) {
+                        getAllData(); //삭제 후 목록 갱신
+                    } else {
+                        alert('삭제 오류 :', result.error || '알 수 없는 오류');
+                    }
+                }
+            } catch (error) {
+                console.log('삭제 오류 :', error);
+                alert('삭제 오류 :', error);
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insert Data</title>
+</head>
+
+<body>
+    <h2>상품 추가</h2>
+    <form id="insert-form">
+        <label for="code">코드:</label>
+        <input type="text" id="code" name="code"><br>
+        <label for="sang">상품명:</label>
+        <input type="text" id="sang" name="sang"><br>
+        <label for="su">수량:</label>
+        <input type="number" id="su" name="su"><br>
+        <label for="dan">단가:</label>
+        <input type="number" id="dan" name="dan"><br>
+        <button type="submit">추가</button>
+    </form>
+    <div id="output"></div>
+
+    <script>
+        document.getElementById('insert-form').addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const code = document.getElementById('code').value;
+            const sang = document.getElementById('sang').value;
+            const su = document.getElementById('su').value;
+            const dan = document.getElementById('dan').value;
+            const idata = { code, sang, su, dan };
+
+            try {
+                const response = await fetch('/sangdata', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(idata)
+                });
+
+                if (response.ok) {
+                    alert('상품 추가 완료');
+                    window.location.href = '/select.html';
+                } else {
+                    const result = await response.json();
+                    document.getElementById('output').textContent = `추가 오류 : ${JSON.stringify(result, null, 2)}`;
+                }
+            } catch (error) {
+                console.error('추가 오류 :', error);
+                document.getElementById('output').textContent = `오류: ${error.message}`;
+            }
+        });
+    </script>
+</body>
+
+</html>

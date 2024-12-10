@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div>
+        <h2>회원 목록</h2>
+        <ul id="emp-list"></ul>
+        <button id="get-emp">회원 목록 가져오기</button>
+    </div>
+    <div>
+        <h2>회원 추가</h2>
+        <label for="new-empname">이름</label>
+        <input type="text" name="new-empname" id="new-empname" placeholder="name"><br />
+        <label for="new-empposition">직급</label>
+        <input type="text" name="new-empposition" id="new-empposition" placeholder="position"><br />
+        <button id="add-emp">회원 추가</button>
+    </div>
+    <div>
+        <h2>회원 수정(update)</h2>
+        <label for="up-empno">사번</label>
+        <input type="number" name="up-empno" id="up-empno" placeholder="id"><br />
+        <label for="up-empname">이름</label>
+        <input type="text" name="up-empname" id="up-empname" placeholder="name"><br />
+        <label for="up-empposition">직급</label>
+        <input type="text" name="up-empposition" id="up-empposition" placeholder="position"><br />
+        <button id="up-emp">회원 수정</button>
+    </div>
+    <div>
+        <h2>회원 삭제(delete)</h2>
+        <label for="del-empno">사번</label>
+        <input type="number" name="del-empno" id="del-empno" placeholder="id"><br />
+        <button id="del-emp">회원 삭제</button>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const empList = document.getElementById("emp-list");
+            const getEmp = document.getElementById("get-emp");
+            const addEmp = document.getElementById("add-emp");
+            const upEmp = document.getElementById("up-emp");
+            const delEmp = document.getElementById("del-emp");
+
+            getEmp.addEventListener('click', () => {
+                fetch('/emp')
+                    .then(res => {
+                        if (!res.ok) throw new Error('전체 데이터를 가져오는중 서버 에러 발생');
+                        return res.json();
+                    })
+                    .then(data => {
+                        empList.innerHTML = '';
+                        data.forEach(emp => {
+                            const li = document.createElement('li');
+                            li.textContent = `${emp.id} : ${emp.name} - ${emp.position}`;
+                            empList.appendChild(li);
+                        });
+                    })
+                    .catch(err => {
+                        console.error("읽기 오류 : " + err.message);
+                    });
+            });
+
+            addEmp.addEventListener('click', () => {
+                fetch('/emp', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        name: document.getElementById('new-empname').value,
+                        position: document.getElementById('new-empposition').value
+                    })
+                })
+                    .then(res => {
+                        if (!res.ok) throw new Error('회원 추가 중 서버 에러 발생');
+                        return res.json();
+                    })
+                    .then(emp => {
+                        const li = document.createElement('li');
+                        li.textContent = `${emp.id} : ${emp.name} - ${emp.position}`;
+                        empList.appendChild(li);
+                    })
+                    .catch(err => {
+                        console.error("추가 오류 : " + err.message);
+                    });
+            });
+
+            upEmp.addEventListener('click', () => {
+                const id = document.getElementById('up-empno').value;
+                const upname = document.getElementById('up-empname').value;
+                const upposition = document.getElementById('up-empposition').value;
+                fetch(`/emp/${id}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        name: upname,
+                        position: upposition
+                    })
+                })
+                    .then(res => {
+                        if (!res.ok) throw new Error('회원 수정 중 서버 에러 발생');
+                        return res.json();
+                    })
+                    .then(data => {
+                        alert(`회원 수정 성공 : ${data.name} - ${data.position}`);
+                    })
+                    .catch(err => {
+                        console.error("수정 오류 : " + err.message);
+                    });
+            });
+
+
+            delEmp.addEventListener('click', () => {
+                const id = document.getElementById('del-empno').value;
+                fetch(`/emp/${id}`, {
+                    method: 'DELETE',
+                })
+                    .then(res => {
+                        if (!res.ok) throw new Error('회원 삭제 중 서버 에러 발생');
+                        return res.json();
+                    })
+                    .catch(err => {
+                        console.error("삭제 오류 : " + err.message);
+                    });
+            });
+        });
+
+    </script>
+</body>
+
+</html>
