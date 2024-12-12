@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #result-continer {
+            display: none;
+        }
+
+        #scatter-plot {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            width: 40%;
+            height: 400px;
+            padding: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>보스턴 지역 평균 집값 예측 : 단순선형회귀 (x:방 개수, rm / y: 집값, medv)</h2>
+    <div id="start">
+        <button id="showButton">분석 결과 차트 보기</button><br />
+        예측 결과가 나오는데 약간의 시간이 소요됩니다.
+    </div>
+    <div id="result-continer">
+        <div id="input-container">
+            방 개수 입력 : <input type="number" id="roomsInput" min="1" />
+            <button id="predictButton">예측 가격 확인</button>
+        </div>
+        <div id="single-predict-container">
+            <h3>궁금한 방 갯수에 대한 집 예측 가격 : </h3>
+            <p id="singlePrediction"></p>
+        </div>
+        <div id="predictions-container">
+            <h3>실제 방 개수 값에 따른 집 예측 가격 : </h3>
+            <ul id="predictions-list"></ul>
+        </div>
+        <div id="chart-container">
+            <div id="scatter-plot"></div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { runAnalysis, predictPrice } from './tf3.mjs';
+        window.runAnalysis = runAnalysis;
+        window.predictPrice = predictPrice;
+    </script>
+</body>
+
+</html>
