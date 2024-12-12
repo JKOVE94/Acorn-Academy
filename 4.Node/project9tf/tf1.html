@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>TensorFlow.js MobileNet 예제</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        #predictions {
+            margin-top: 20px;
+        }
+
+        #predictions ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        #predictions li {
+            background: #f0f0f0;
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        #predictions li span {
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- TensorFlow.js 최신 버전 로드 -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.12.0"></script>
+    <!-- MobileNet 최신 버전 로드 -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/mobilenet@2.1.0"></script>
+
+    <!-- 분석할 이미지 : 이미지 파일(선택적)은 local에 저정해 둔다 -->
+    <img id="img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSn6Bf8di5w6tTw7zzJKt-Z58_mr1taa6ohMA&s"
+        alt="분석할 이미지" crossorigin="anonymous" style="max-width: 100%; height: auto;" />
+
+    <!-- 예측 결과를 표시할 영역 -->
+    <div id="predictions">
+        <h2>예측 결과</h2>
+        <!-- 예측 결과가 여기에 추가됩니다 -->
+    </div>
+
+    <!-- 스크립트 -->
+    <script>
+        // 이미지 요소와 예측 결과를 표시할 div 요소 가져오기
+        const img = document.getElementById('img');
+        const predictionsDiv = document.getElementById('predictions');
+
+        // 이미지가 로드된 후 모델을 로드하고 분류 수행
+        img.onload = () => {
+            // MobileNet 모델 로드
+            mobilenet.load().then(model => {
+                // 이미지 분류
+                model.classify(img).then(predictions => {
+                    console.log('Predictions: ', predictions);
+                    displayPredictions(predictions);
+                }).catch(err => {
+                    console.error('분류 중 오류 발생:', err);
+                    predictionsDiv.innerHTML += `<p style="color: red;">분류 중 오류가 발생 : ${err.message}</p>`;
+                });
+            }).catch(err => {
+                console.error('모델 로드 중 오류 발생:', err);
+                predictionsDiv.innerHTML += `<p style="color: red;">모델 로드 중 오류가 발생 : ${err.message}</p>`;
+            });
+        };
+
+        // 이미지가 이미 캐시에 있을 경우를 대비하여 로드 이벤트 수동 트리거
+        if (img.complete) {
+            img.onload();
+        }
+
+        // 예측 결과를 웹 페이지에 표시하는 함수   @param {Array} predictions - 모델의 예측 결과 배열
+        function displayPredictions(predictions) {
+            // 기존 예측 결과가 있을 경우 초기화
+            predictionsDiv.innerHTML = '<h2>예측 결과</h2>';
+
+            // 예측 결과를 담을 리스트 요소 생성
+            const ul = document.createElement('ul');
+
+            // 각 예측 결과를 리스트 아이템으로 추가
+            predictions.forEach((prediction, index) => {
+                const li = document.createElement('li');
+                li.innerHTML = `<span>순위 ${index + 1}:</span> ${prediction.className} - ${(prediction.probability * 100).toFixed(2)}%`;
+                ul.appendChild(li);
+            });
+
+            // 리스트를 예측 결과 div에 추가
+            predictionsDiv.appendChild(ul);
+        }
+    </script>
+</body>
+
+</html>

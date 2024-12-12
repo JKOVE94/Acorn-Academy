@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- TensorFlow.js 로드 -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-vis/dist/tfjs-vis.umd.min.js"></script>
+
+    <!-- 통계관련 기타 (상관계수 등) 라이브러리 로드 -->
+    <script src="https://cdn.jsdelivr.net/npm/simple-statistics@7.7.0/dist/simple-statistics.min.js"></script>
+    <title>Document</title>
+    <!-- Main script -->
+    <script type="module">
+        import { func } from "./tf2script.mjs";
+        window.func = func;
+    </script>
+</head>
+
+<body>
+    <h3>회귀분석 모델 기본 이해</h3>
+    새로운 값 입력: <input type="number" value="1" id="inputValue" />
+    <button onclick="func()">결과보기</button>
+    <hr>
+    <div id="showResult"></div>
+    <div id="r2"></div> <!-- 모델 성능 확인용 결정계수 표시-->
+
+    <div id="chart-container" style="margin-top:20px"></div>
+</body>
+
+</html>

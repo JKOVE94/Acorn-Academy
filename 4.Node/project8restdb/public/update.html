@@ -23,53 +23,51 @@
     <div id="output"></div>
 
     <script>
-        const updateFormQueryParmas = () => {
-            const urlParams = new URLSearchParams(window.location.search);
-            const code = urlParams.get('code');
-            const sang = urlParams.get('sang');
-            const su = urlParams.get('su');
-            const dan = urlParams.get('dan');
-            document.getElementById('code').value = code
-            document.getElementById('sang').value = sang;
-            document.getElementById('su').value = su;
-            document.getElementById('dan').value = dan;
+        const fillEditdata = () => {
+            const urlParams = new URLSearchParams(window.location.search); //window.location.seach 는 현재 페이지의 URL중 파라미터, 즉 ?뒤에 있는 값들을 가져온다.
+            // URLSearchParams(window.location.search) 는 & 기준으로 각각의 값을 가져온다. => query문자열을 객체로 변환
+
+            // console.log("location : " + window.location.search); 
+            // console.log(urlParams, " ", urlParams.get('code'));
+            document.getElementById('code').value = urlParams.get('code') || '';
+            document.getElementById('sang').value = urlParams.get('sang') || '';
+            document.getElementById('su').value = urlParams.get('su') || '';
+            document.getElementById('dan').value = urlParams.get('dan') || '';
         }
+
         async function updateData(event) {
             event.preventDefault();
             alert('수정');
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            updateFormQueryParmas();
+            fillEditdata();
         });
 
-        document.getElementById('update-form').addEventListener('submit', async (event) => {
-
-
+        document.getElementById('update-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
             const code = document.getElementById('code').value;
             const sang = document.getElementById('sang').value;
             const su = document.getElementById('su').value;
             const dan = document.getElementById('dan').value;
-            const udata = { code, sang, su, dan };
+            const udata = { sang, su, dan };
 
             try {
-                const response = await fetch('/sangdata', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(udata)
+                const response = await fetch(`/sangdata/${code}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(udata),
                 });
-
                 if (response.ok) {
-                    alert('상품 추가 완료');
+                    // document.getElementById('output').textContent = `수정 성공 : ${JSON.stringify(results, null, 2)}`;
+                    alert('상품 수정 완료');
                     window.location.href = '/select.html';
                 } else {
                     const result = await response.json();
-                    document.getElementById('output').textContent = `추가 오류 : ${JSON.stringify(result, null, 2)}`;
+                    document.getElementById('output').textContent = `수정 실패 : ${JSON.stringify(error, null, 2)}`;
                 }
             } catch (error) {
-                console.error('추가 오류 :', error);
+                console.error('수정 오류 :', error);
                 document.getElementById('output').textContent = `오류: ${error.message}`;
             }
         });
