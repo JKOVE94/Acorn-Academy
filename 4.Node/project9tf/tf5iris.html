@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-vis/dist/tfjs-vis.umd.min.js"></script>
+    <style>
+        #input-container {
+            margin-top: 20px;
+        }
+
+        #prediction-result {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            color: blue;
+        }
+
+        #loading-message {
+            display: none;
+            /* 초기에는 숨김 */
+            font-weight: bold;
+            color: #007bff;
+            margin: 20px 0;
+        }
+
+        #chart-container {
+            margin-top: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Iris Dataset으로 분류</h1>
+    <p>TensorFlow.js를 사용하여 Iris 데이터셋을 분류하고, 산점도 시각화</p>
+    <button id="trainModel">모델 학습 시작</button>
+
+    <div id="loading-message">분류 모델 생성 중 ...</div>
+    <p id="trainingStatus"></p>
+
+    <div id="input-container">
+        <h3>분류를 위한 꽃 특성 입력:</h3>
+        Sepal Length:</label>
+        <input type="number" id="sepalLength" step="0.1" /><br>
+        Sepal Width:</label>
+        <input type="number" id="sepalWidth" step="0.1" /><br>
+        Petal Length:</label>
+        <input type="number" id="petalLength" step="0.1" /><br>
+        Petal Width:</label>
+        <input type="number" id="petalWidth" step="0.1" /><br>
+        <button id="predictButton">분류 결과 확인</button>
+    </div>
+
+    <p id="prediction-result"></p>
+
+    <div id="chart-container">
+        <div id="scatter-plot"></div>
+    </div>
+    <script type="module" src="./tf5iris.mjs"></script>
+</body>
+
+</html>
