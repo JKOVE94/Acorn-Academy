@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h2>에이콘 쇼핑몰</h2>
+<p>핸드 크림</p>
+<form th:action="@{/shop/buy}">
+<input type="hidden" name="goodscode" value="ks_cream100"/>
+<select name="amount">
+<option>1</option>
+<option>2</option>
+<option>3</option>
+<option>4</option>
+</select>
+<button>구입하기</button>
+</form>
+<a th:href="@{/}">메인으로</a>
+</body>
+</html>

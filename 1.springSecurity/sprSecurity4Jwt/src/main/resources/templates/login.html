@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Title</title>
+</head>
+<body>
+	<h2>Security(JWT)로 로그인 연습</h2>
+	<form th:action="@{/auth/login}" method="post">
+		직원번호 : <input type="text" name="sabun" required /><br> 
+		직 원 명 : <input type="text" name="irum" required /><br>
+		<button type="submit">로그인</button>
+	</form>
+	
+	<div th:if="${param.error}">
+    <p style="color: red">잘못된 정보로 로그인 실</p>
+</div>
+	
+	<!-- CSRF 방어 -->
+	<!-- <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" /> -->
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h3>사용자 정보 예</h3>
+<table border="1">
+	<tr>
+		<th>id</th>
+		<th>password</th>
+		<th>role</th>
+	</tr>
+	<tr>
+		<td>guest</td>
+		<td>1234</td>
+		<td>ROLE_USER</td>		
+	</tr>
+	<tr>
+		<td>batman</td>
+		<td>1234</td>
+		<td>ROLE_STAFF</td>		
+	</tr>
+	<tr>
+		<td>superman</td>
+		<td>1234</td>
+		<td>ROLE_ADMIN</td>		
+	</tr>
+</table>
+<form th:action="@{/}">
+<input type="text" name="id">
+<input type="text" name="password">
+<button>로그인</button>
+</form>
+</body>
+</html>

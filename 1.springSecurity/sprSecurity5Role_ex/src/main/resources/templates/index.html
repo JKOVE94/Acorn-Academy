@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h2>홈페이지</h2>
+<div sec:authorize="isAuthenticated()">
+	<b sec:authentication="name"></b>님 로그인 중
+	<br/>
+	<a th:href="@{/user/logout}">로그아웃</a>
+</div>
+
+<div sec:authorize="!isAuthenticated()">
+	로그인 하지 않음
+	<br/>
+	<a th:href="@{/user/loginform}">로그인</a>
+</div>
+
+<ul>
+	<li><a th:href="@{/notice}">공지사항 보기 (로그인 필요 없음)</a></li>
+	<li><a th:href="@{/play}">재미있게 노는 공간 (로그인 필요)</a></li>
+	<li><a th:href="@{/shop}">쇼핑하기 (로그인 필요 없음), 상품 구입시 로그인 필요</a></li>
+	<li><a th:href="@{/staff/user/list}">회원목록 (staff, admin 전용)</a></li>
+	<li><a th:href="@{/admin/user/manage}">회원관리 (admin 전용)</a></li>
+</ul>
+
+</body>
+</html>

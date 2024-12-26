@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h2>구구단</h2>
+<form th:action="@{/gugu}" method="post">
+    <label for="dan">단:</label>
+    <input type="text" id="dan" name="dan" required>
+    <button type="submit">확인</button>
+</form>
+<div>
+    <th:block th:if="${dan}">
+        <div id="gugudan">
+
+        <h2>구구단 [[${dan}]]단 결과</h2>
+        <ul >
+            <li th:each="i : ${#numbers.sequence(1, 9)}">
+                [[|${dan} * ${i} = ${dan * i}|]]
+            </li>
+        </ul>
+        <button onclick="invisible()">숨기기</button>
+        </div>
+    </th:block>
+<a th:href="@{/logout}">로그아웃</a>
+<a th:href="@{/success}">로그인 성공페이지로 돌아가기</a>
+</div>
+<script>
+    const invisible = () => {
+        document.getElementById('gugudan').style.display = 'none';
+    }
+</script>
+</body>
+</html>
